@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../multimedia/favicon.svg">
+    <title>Contacto — GAGA Style</title>
+    <link rel="stylesheet" href="../estilos/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap">
+    <link rel="stylesheet" href="../estilos/estilos.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <span class="brand-main">GAGA</span>
+                    <span class="brand-tag">Style</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#sobre">Sobre Gaga</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#marcas">Marcas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#looks">Looks icónicos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#musica">Música</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#video">Video</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../index.html#faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Intro -->
+        <section id="intro-contacto">
+            <div class="container">
+                <h1>Conectá con nosotros</h1>
+                <p>¿Tenés una colaboración, una pregunta o querés saber más sobre el universo Gaga? Escribinos y te respondemos en menos de 48 horas.</p>
+            </div>
+        </section>
+
+        <!-- Formulario -->
+        <section id="formulario">
+            <div class="container">
+                <h2>Escribinos</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="tu@email.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="asunto" class="form-label">Asunto</label>
+                        <input type="text" class="form-control" id="asunto" name="asunto" placeholder="¿Sobre qué nos escribís?" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Contanos en detalle..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-warning">Enviar</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Otros canales -->
+        <section id="canales">
+            <div class="container">
+                <h2>Otros canales</h2>
+                <p>Si preferís escribirnos directo o seguirnos en redes:</p>
+                <p><a href="mailto:hola@gagastyle.com">hola@gagastyle.com</a></p>
+                <ul class="list-unstyled redes-contacto">
+                    <li><a href="https://instagram.com/">Instagram</a></li>
+                    <li><a href="https://x.com/">X</a></li>
+                    <li><a href="https://tiktok.com/">TikTok</a></li>
+                    <li><a href="https://youtube.com/">YouTube</a></li>
+                    <li><a href="https://pinterest.com/">Pinterest</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Volver -->
+        <section id="volver">
+            <div class="container">
+                <a href="../index.html" class="btn btn-outline-warning">Volver al inicio</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <ul class="list-unstyled">
+                <li><a href="https://instagram.com/" aria-label="Instagram"><i class="bi bi-instagram"></i></a></li>
+                <li><a href="https://x.com/" aria-label="X"><i class="bi bi-twitter-x"></i></a></li>
+                <li><a href="https://tiktok.com/" aria-label="TikTok"><i class="bi bi-tiktok"></i></a></li>
+                <li><a href="https://youtube.com/" aria-label="YouTube"><i class="bi bi-youtube"></i></a></li>
+                <li><a href="https://pinterest.com/" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a></li>
+            </ul>
+            <p>&copy; 2026 Gaga Style. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

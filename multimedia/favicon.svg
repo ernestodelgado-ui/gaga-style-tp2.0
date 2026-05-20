@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <defs>
+        <linearGradient id="oro" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f1c860"/>
+            <stop offset="100%" stop-color="#c89a2b"/>
+        </linearGradient>
+    </defs>
+    <rect x="2" y="2" width="60" height="60" rx="12" fill="#050d1f" stroke="url(#oro)" stroke-width="2"/>
+    <text x="50%" y="52%"
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-family="'Playfair Display', 'Didot', 'Bodoni 72', Georgia, 'Times New Roman', serif"
+          font-weight="900"
+          font-size="44"
+          fill="url(#oro)">G</text>
+</svg>

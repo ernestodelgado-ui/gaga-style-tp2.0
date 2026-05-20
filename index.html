@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="multimedia/favicon.svg">
+    <title>GAGA Style</title>
+    <link rel="stylesheet" href="estilos/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap">
+    <link rel="stylesheet" href="estilos/estilos.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#inicio">
+                    <span class="brand-main">GAGA</span>
+                    <span class="brand-tag">Style</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#inicio">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sobre">Sobre Gaga</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#marcas">Marcas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#looks">Looks icónicos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#musica">Música</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#video">Video</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#faq">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contacto">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- 01 INICIO — banner con carousel -->
+        <section id="inicio" class="carousel slide carousel-fade">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#inicio" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Banner Lady Gaga"></button>
+                <button type="button" data-bs-target="#inicio" data-bs-slide-to="1" aria-label="Banner Un manifiesto"></button>
+                <button type="button" data-bs-target="#inicio" data-bs-slide-to="2" aria-label="Banner Alta costura"></button>
+            </div>
+
+            <ul class="carousel-inner p-0 m-0">
+                <li class="carousel-item active">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="multimedia/banner/banner1_mobile.webp">
+                        <source media="(max-width: 991px)" srcset="multimedia/banner/banner1_tablet.webp">
+                        <img src="multimedia/banner/banner1_pc.webp" class="d-block w-100" alt="Lady Gaga look 1">
+                    </picture>
+                    <div class="carousel-caption">
+                        <p>Estilo icónico. Moda sin miedo.</p>
+                        <h1>Lady Gaga</h1>
+                        <p>El vestuario que dio vida a su arte.</p>
+                        <a href="#sobre" class="btn btn-outline-warning">Explorar</a>
+                    </div>
+                </li>
+                <li class="carousel-item">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="multimedia/banner/banner2_mobile.webp">
+                        <source media="(max-width: 991px)" srcset="multimedia/banner/banner2_tablet.webp">
+                        <img src="multimedia/banner/banner2_pc.webp" class="d-block w-100" alt="Lady Gaga look 2">
+                    </picture>
+                    <div class="carousel-caption">
+                        <p>Provocación y arte.</p>
+                        <h2>Un manifiesto</h2>
+                        <p>Atuendos que marcaron una era.</p>
+                        <a href="#looks" class="btn btn-outline-warning">Ver looks</a>
+                    </div>
+                </li>
+                <li class="carousel-item">
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="multimedia/banner/banner3_mobile.webp">
+                        <source media="(max-width: 991px)" srcset="multimedia/banner/banner3_tablet.webp">
+                        <img src="multimedia/banner/banner3_pc.webp" class="d-block w-100" alt="Lady Gaga look 3">
+                    </picture>
+                    <div class="carousel-caption">
+                        <p>Diseñadores y casas de moda.</p>
+                        <h2>Alta costura</h2>
+                        <p>Descubrí quién está detrás de cada look.</p>
+                        <a href="#marcas" class="btn btn-outline-warning">Ver marcas</a>
+                    </div>
+                </li>
+            </ul>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#inicio" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#inicio" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </section>
+
+        <!-- 02 SOBRE GAGA -->
+        <section id="sobre">
+            <div class="container">
+                <h2>Sobre Lady Gaga</h2>
+                <p>Artista, ícono y visionaria. Lady Gaga ha redefinido la moda a través de su música, sus performances y su autenticidad.</p>
+                <figure>
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="multimedia/sobre_mobile.webp">
+                        <source media="(max-width: 991px)" srcset="multimedia/sobre_tablet.webp">
+                        <img src="multimedia/sobre_pc.webp" class="img-fluid" alt="Retrato de Lady Gaga">
+                    </picture>
+                </figure>
+                <a href="secciones/sobre.html" class="btn btn-outline-warning">Conocer más</a>
+            </div>
+        </section>
+
+        <!-- 03 MARCAS — grid de logos -->
+        <section id="marcas">
+            <div class="container">
+                <h2>Marcas que la visten</h2>
+                <p>Descubrí las casas de moda que han colaborado con Gaga en sus looks más memorables.</p>
+
+                <!-- propiedad + break + columna -->
+                <ul class="row list-unstyled">
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="secciones/marca1.html" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca1.webp" class="img-fluid" alt="Versace">
+                            <span>Versace</span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="#" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca2.webp" class="img-fluid" alt="Armani">
+                            <span>Armani</span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="#" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca3.webp" class="img-fluid" alt="Valentino">
+                            <span>Valentino</span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="#" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca4.webp" class="img-fluid" alt="Mugler">
+                            <span>Mugler</span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="#" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca5.webp" class="img-fluid" alt="Alexander McQueen">
+                            <span>Alexander McQueen</span>
+                        </a>
+                    </li>
+                    <li class="col-6 col-md-4 col-lg-2">
+                        <a href="#" class="tarjeta-marca">
+                            <img src="multimedia/marcas/marca6.webp" class="img-fluid" alt="Gucci">
+                            <span>Gucci</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 04 LOOKS ICÓNICOS -->
+        <section id="looks">
+            <div class="container">
+                <h2>Looks icónicos</h2>
+                <p>Reviví sus atuendos más impactantes que marcaron tendencia.</p>
+
+                <!-- propiedad + break + columna -->
+                <ul class="row list-unstyled">
+                    <li class="card col-12 col-md-6 col-lg-4">
+                        <figure>
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="multimedia/looks/look1_mobile.webp">
+                                <source media="(max-width: 991px)" srcset="multimedia/looks/look1_tablet.webp">
+                                <img src="multimedia/looks/look1_pc.webp" class="card-img-top img-fluid" alt="Lady Gaga con el vestido de carne en los MTV VMA 2010">
+                            </picture>
+                        </figure>
+                        <div class="card-body">
+                            <h3 class="card-title">Vestido de carne</h3>
+                            <a href="secciones/look1.html" class="card-link">Ver más</a>
+                        </div>
+                    </li>
+                    <li class="card col-12 col-md-6 col-lg-4">
+                        <figure>
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="multimedia/looks/look2_mobile.webp">
+                                <source media="(max-width: 991px)" srcset="multimedia/looks/look2_tablet.webp">
+                                <img src="multimedia/looks/look2_pc.webp" class="card-img-top img-fluid" alt="Lady Gaga con el traje de burbujas plásticas transparentes">
+                            </picture>
+                        </figure>
+                        <div class="card-body">
+                            <h3 class="card-title">Burbujas plásticas</h3>
+                            <a href="#" class="card-link">Ver más</a>
+                        </div>
+                    </li>
+                    <li class="card col-12 col-md-6 col-lg-4">
+                        <figure>
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="multimedia/looks/look3_mobile.webp">
+                                <source media="(max-width: 991px)" srcset="multimedia/looks/look3_tablet.webp">
+                                <img src="multimedia/looks/look3_pc.webp" class="card-img-top img-fluid" alt="Lady Gaga con vestido rojo de alta costura sobre alfombra roja">
+                            </picture>
+                        </figure>
+                        <div class="card-body">
+                            <h3 class="card-title">Alta costura roja</h3>
+                            <a href="#" class="card-link">Ver más</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <a href="#" class="btn btn-outline-warning">Ver galería</a>
+            </div>
+        </section>
+
+        <!-- 05 MÚSICA -->
+        <section id="musica">
+            <div class="container">
+                <h2>Escuchá a Gaga</h2>
+                <p>Reproducí "Shape of a Woman" y sumergite en su universo sonoro.</p>
+
+                <div class="reproductor">
+                    <div class="reproductor-info">
+                        <span class="reproductor-artista">Lady Gaga</span>
+                        <span class="reproductor-tema">Shape of a Woman</span>
+                    </div>
+                    <audio controls preload="metadata">
+                        <source src="multimedia/audio/shape-of-a-woman.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- 06 VIDEO -->
+        <section id="video">
+            <div class="container">
+                <h2>Mirá a Gaga</h2>
+                <p>Disfrutá del videoclip oficial de "Runway" junto a Doechii.</p>
+
+                <div class="reproductor-video">
+                    <div class="reproductor-info">
+                        <span class="reproductor-artista">Lady Gaga &amp; Doechii</span>
+                        <span class="reproductor-tema">Runway</span>
+                    </div>
+                    <iframe
+                        src="https://www.youtube.com/embed/XXIX2WnfbpE"
+                        title="Videoclip de Lady Gaga"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- 07 FAQ — accordion de Bootstrap, primer item abierto por default -->
+        <section id="faq">
+            <div class="container">
+                <h2>Preguntas frecuentes</h2>
+                <p>Las dudas más comunes sobre Lady Gaga y su universo de moda.</p>
+
+                <ul class="accordion list-unstyled" id="faqAccordion">
+                    <li class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                ¿Quién es Lady Gaga?
+                            </button>
+                        </h3>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Cantante, actriz y diseñadora estadounidense. Ícono de la moda y del pop contemporáneo, conocida por usar la ropa como extensión de su arte y de su mensaje.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                ¿Cuáles son sus looks más recordados?
+                            </button>
+                        </h3>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                El vestido de carne en los MTV VMA 2010, el traje de burbujas plásticas y sus apariciones de alta costura en alfombras rojas como las de House of Gucci.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                ¿Qué marcas la han vestido?
+                            </button>
+                        </h3>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Versace, Armani, Valentino, Mugler, Alexander McQueen y Gucci, entre otras casas de alta costura que la vistieron en momentos clave de su carrera.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                ¿Por qué se la considera un ícono de moda?
+                            </button>
+                        </h3>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Porque rompió moldes desde sus inicios y transformó cada presentación en una declaración artística, usando los atuendos como un mensaje y no solo como vestuario.
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion-item">
+                        <h3 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false" aria-controls="faq5">
+                                ¿Dónde puedo verla actuar?
+                            </button>
+                        </h3>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                En sus videos oficiales y conciertos. En este mismo sitio podés ver y escuchar material en las secciones de Música y Video.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Newsletter CTA: el botón dispara un alert dinámico con JS
+                     (mismo patrón oficial de Bootstrap: createElement + append).
+                     El script va al final del body. -->
+                <div class="newsletter-cta">
+                    <p>¿Querés enterarte de las próximas novedades de Gaga?</p>
+                    <div id="liveAlertPlaceholder"></div>
+                    <button id="liveAlertBtn" type="button" class="btn btn-outline-warning">Suscribite al newsletter</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08 CONTACTO -->
+        <section id="contacto">
+            <div class="container">
+                <h2>Conectá con nosotros</h2>
+                <p>¿Tenés una colaboración o querés saber más?</p>
+                <figure>
+                    <picture>
+                        <source media="(max-width: 767px)" srcset="multimedia/contacto/contacto_mobile.webp">
+                        <source media="(max-width: 991px)" srcset="multimedia/contacto/contacto_tablet.webp">
+                        <img src="multimedia/contacto/contacto_pc.webp" class="img-fluid" alt="Contacto">
+                    </picture>
+                </figure>
+                <a href="secciones/contacto.html" class="btn btn-outline-warning">Contactanos</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <ul class="list-unstyled">
+                <li><a href="https://instagram.com/" aria-label="Instagram"><i class="bi bi-instagram"></i></a></li>
+                <li><a href="https://x.com/" aria-label="X"><i class="bi bi-twitter-x"></i></a></li>
+                <li><a href="https://tiktok.com/" aria-label="TikTok"><i class="bi bi-tiktok"></i></a></li>
+                <li><a href="https://youtube.com/" aria-label="YouTube"><i class="bi bi-youtube"></i></a></li>
+                <li><a href="https://pinterest.com/" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a></li>
+            </ul>
+            <p class="footer-alumnos">Adrian Delgado &middot; Cynthia Rivero</p>
+            <p class="footer-carrera">DGM5AV</p>
+            <p>&copy; 2026 Gaga Style. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!--
+      Live alert: al hacer click en "Suscribite al newsletter", se inserta
+      dinámicamente un alert dismissible dentro de #liveAlertPlaceholder.
+      Patrón oficial de Bootstrap (createElement + innerHTML + append),
+      tal cual mostró la profe en la slide "Alert con JavaScript".
+    -->
+    <script>
+        const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>',
+                '</div>'
+            ].join('')
+
+            alertPlaceholder.append(wrapper)
+        }
+
+        const alertTrigger = document.getElementById('liveAlertBtn')
+        if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+                appendAlert('¡Gracias por suscribirte! Pronto recibirás las novedades de Gaga en tu correo.', 'warning')
+            })
+        }
+    </script>
+
+    <!--
+      Scrollspy: actualiza la clase .active del nav-link según la sección
+      que el usuario está viendo. Target = #menuPrincipal (el <div> que contiene
+      el <ul class="navbar-nav">). rootMargin compensa la nav sticky de PC
+      (-120px arriba) y dispara el cambio cuando el título de la sección
+      llega al tercio superior del viewport (-40% abajo).
+    -->
+    <script>
+        // ScrollSpy actualiza .active del nav-link según la sección visible.
+        // NO usamos smoothScroll: true porque ignora scroll-padding-top del CSS.
+        // El smooth scroll lo hace el browser nativamente (scroll-behavior: smooth)
+        // que SÍ respeta el padding para que la nav sticky no tape el título.
+        new bootstrap.ScrollSpy(document.body, {
+            target: '#menuPrincipal',
+            rootMargin: '-120px 0px -40% 0px'
+        })
+    </script>
+
+    <!--
+      Fade-in al scrollear: cuando una <section> entra al viewport, se anima
+      de opacity 0 + translateY(30px) hacia su posición normal. Solo en PC
+      porque es donde tiene impacto visual. Salteamos la primera sección
+      (banner) que ya está visible al cargar — así no parpadea.
+    -->
+    <script>
+        if (window.matchMedia('(min-width: 1024px)').matches) {
+            const sections = document.querySelectorAll('main > section:not(:first-of-type)')
+
+            sections.forEach(s => s.classList.add('fade-in-pending'))
+
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                        fadeObserver.unobserve(entry.target)
+                    }
+                })
+            }, {
+                /* threshold 0 + rootMargin -120px abajo: el fade-in dispara apenas
+                   la sección asoma 120px desde el borde inferior del viewport.
+                   Así el usuario VE la animación (antes disparaba muy tarde, con
+                   15% de la sección visible ya estaba arriba del fold). */
+                threshold: 0,
+                rootMargin: '0px 0px -120px 0px'
+            })
+
+            sections.forEach(s => fadeObserver.observe(s))
+        }
+    </script>
+</body>
+</html>

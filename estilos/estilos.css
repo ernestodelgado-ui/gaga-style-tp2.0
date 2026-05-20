@@ -1,0 +1,1526 @@
+/* =========================================================
+   GAGA STYLE — estilos.css
+   ---------------------------------------------------------
+   Hoja de estilos principal del TP2 (sitio sobre Lady Gaga).
+   Carga DESPUÉS de bootstrap.css, así que puede pisar reglas
+   de Bootstrap cuando hace falta.
+
+   Orden del archivo:
+     1) Paleta y variables (colores reutilizables)
+     2) Base (html/body, tipografías, secciones, botones)
+     3) Navbar (header)
+     4) Banner / Inicio (carousel)
+     5) Sobre Gaga y Contacto (figures con marco dorado)
+     6) Marcas (tarjetas cuadradas con hover)
+     7) Página individual de marca y look-marca
+     8) Looks icónicos (cards)
+     9) Música y Video (reproductores)
+    10) Formulario de contacto
+    11) Separador decorativo entre secciones
+    12) Footer
+
+   Breakpoints usados:
+     - Mobile: estilos base (sin media query).
+     - Tablet: @media (min-width: 768px) and (max-width: 991px).
+     - PC:     @media (min-width: 1024px).
+   ========================================================= */
+
+/* ============================================
+   1) Paleta y variables
+   --------------------------------------------
+   Toda la paleta del sitio en custom properties.
+   Si hay que cambiar un color, se cambia acá UNA vez y
+   se actualiza en todo el CSS.
+   ============================================ */
+:root {
+    --navy-fondo: #0c1a3a;   /* azul principal del fondo */
+    --navy-claro: #142552;   /* azul un poco más claro (bordes sutiles) */
+    --navy-oscuro: #050d1f;  /* azul muy oscuro (header) */
+    --dorado: #e0b341;       /* dorado principal (acentos, títulos) */
+    --dorado-claro: #f1c860; /* dorado para hover */
+    --texto-claro: #f5f5f5;  /* texto principal sobre fondo oscuro */
+    --texto-suave: #c7c9d1;  /* texto secundario / descripciones */
+}
+
+/* ============================================
+   2) Base
+   --------------------------------------------
+   Reset suave, tipografía, fondo con textura,
+   estilos de h1/h2/h3, links y secciones.
+   ============================================ */
+
+/* Anti scroll horizontal (algunas animaciones se pasan unos px) */
+html, body {
+    overflow-x: clip;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+main, header, footer {
+    overflow-x: clip;
+    max-width: 100%;
+}
+
+/* Fondo: textura de estrellas + overlay navy semi-transparente para oscurecer */
+body {
+    background-color: var(--navy-fondo);
+    background-image:
+        linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+        url('../multimedia/textura_mobile.webp');
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed; /* la textura queda quieta al scrollear */
+    background-repeat: no-repeat;
+    color: var(--texto-claro);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Cambiamos la textura por una más pesada al subir el viewport,
+   así no se ve pixelada en pantallas grandes. */
+@media (min-width: 768px) {
+    body {
+        background-image:
+            linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+            url('../multimedia/textura_tablet.webp');
+    }
+}
+
+@media (min-width: 992px) {
+    body {
+        background-image:
+            linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+            url('../multimedia/textura_pc.webp');
+    }
+}
+
+/* Todos los títulos del sitio van en dorado, mayúsculas y con espaciado.
+   Da el aire "editorial" / moda de lujo. */
+h1, h2, h3 {
+    color: var(--dorado);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--dorado);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--dorado-claro);
+}
+
+/* Padding vertical de TODAS las secciones (deja aire arriba y abajo) */
+section {
+    padding: 40px 20px;
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: 80px 0; /* más aire en tablet/PC */
+    }
+}
+
+/* ============================================
+   Botones pill — efecto vidrio esmerilado
+   --------------------------------------------
+   Los .btn del sitio se ven como pastillas doradas
+   semitransparentes con blur por detrás (glassmorphism)
+   y una flecha "→" auto-agregada al final.
+   ============================================ */
+.btn-outline-warning,
+.btn {
+    position: relative;
+    border: 1px solid rgba(224, 179, 65, 0.6);
+    color: var(--dorado);
+    background-color: rgba(224, 179, 65, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 12px 32px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Flecha "→" agregada por CSS al final de cada botón (no se escribe en el HTML) */
+.btn-outline-warning::after,
+.btn::after {
+    content: " →";
+}
+
+/* Hover: el botón se levanta 2px y brilla más fuerte */
+.btn-outline-warning:hover,
+.btn:hover {
+    background-color: rgba(224, 179, 65, 0.25);
+    color: var(--dorado-claro);
+    border-color: var(--dorado);
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 25px rgba(224, 179, 65, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline-warning:active,
+.btn:active {
+    transform: translateY(0);
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   3) Navbar
+   --------------------------------------------
+   Header con fondo navy oscuro, línea dorada gradiente
+   en el borde inferior (la misma que usamos como separador
+   entre secciones más abajo) y un sutil glow dorado.
+   ============================================ */
+header {
+    background-color: var(--navy-oscuro);
+    /* Borde inferior con degradado transparente → dorado → transparente */
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(to right, transparent 0%, var(--dorado) 50%, transparent 100%) 1;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(224, 179, 65, 0.3);
+}
+
+.navbar {
+    padding: 20px 0;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    padding: 0;
+    color: var(--dorado) !important;
+    text-decoration: none;
+}
+
+/* "GAGA" — texto grande con fuente serif Playfair Display */
+.navbar-brand .brand-main {
+    font-family: 'Playfair Display', 'Georgia', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    color: var(--dorado);
+    text-shadow:
+        0 2px 8px rgba(224, 179, 65, 0.35),
+        0 0 1px rgba(224, 179, 65, 0.5);
+}
+
+/* "Style" — texto chiquito debajo de "GAGA", entre dos rayitas doradas */
+.navbar-brand .brand-tag {
+    margin-top: 2px;
+    font-size: 0.6rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    position: relative;
+    padding: 0 14px;
+}
+
+/* Líneas decorativas a los costados de "Style" */
+.navbar-brand .brand-tag::before,
+.navbar-brand .brand-tag::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 1px;
+    background-color: var(--dorado);
+    opacity: 0.7;
+}
+
+.navbar-brand .brand-tag::before {
+    left: 0;
+}
+
+.navbar-brand .brand-tag::after {
+    right: 0;
+}
+
+.navbar-brand:hover .brand-main {
+    color: var(--dorado-claro);
+}
+
+.nav-link {
+    color: var(--texto-claro) !important;
+    letter-spacing: 1px;
+    padding: 0 15px !important;
+}
+
+/* Bootstrap aplica el color de hover también al :focus. Sin esta regla,
+   el link queda dorado después del click (browser lo deja enfocado),
+   aunque no sea el activo. Reseteamos a blanco. */
+.nav-link:focus {
+    color: var(--texto-claro) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--dorado) !important;
+}
+
+/* Menú centrado cuando está colapsado (mobile/tablet) */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .navbar-nav .nav-item {
+        padding: 8px 0;
+    }
+}
+
+.navbar-toggler {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+/* Pintamos el ícono "hamburguesa" de Bootstrap en dorado usando filter */
+.navbar-toggler-icon {
+    filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(10deg);
+}
+
+/* ============================================
+   4) Banner / Inicio (carousel de Bootstrap)
+   --------------------------------------------
+   3 slides con foto de Gaga + caption (tagline + título + descripción + botón).
+   Tiene degradados sobre la imagen para que el texto se lea SIEMPRE
+   sin tapar a Gaga con un overlay opaco.
+   ============================================ */
+#inicio {
+    padding: 0;
+    background-color: var(--navy-fondo);
+    overflow: hidden;
+    max-width: 100%;
+}
+
+#inicio .carousel-item {
+    position: relative;
+}
+
+/* Degradado para que el texto se lea sin tapar a Gaga con opacidad */
+#inicio .carousel-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+        rgba(12, 26, 58, 0.75) 0%,
+        rgba(12, 26, 58, 0.55) 25%,
+        rgba(12, 26, 58, 0.2) 50%,
+        rgba(12, 26, 58, 0) 70%,
+        rgba(12, 26, 58, 0.6) 90%,
+        rgba(12, 26, 58, 1) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Cada slide ocupa 80% del alto de la ventana */
+#inicio .carousel-item img {
+    height: 80vh;
+    object-fit: cover;
+}
+
+/* Caption (texto sobre la imagen) — en mobile va arriba a la izquierda */
+#inicio .carousel-caption {
+    left: 5%;
+    right: 5%;
+    bottom: auto;
+    top: 8%;
+    transform: none;
+    text-align: left;
+    padding: 0;
+    z-index: 2; /* por encima del degradado ::before */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Tagline (primer <p> del caption) */
+#inicio .carousel-caption > p:first-child {
+    color: var(--texto-claro);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Título grande "LADY GAGA" — usa clamp para crecer con el viewport.
+   El primer slide es <h1> (título principal del sitio), los otros dos son <h2>. */
+#inicio .carousel-caption h1,
+#inicio .carousel-caption h2 {
+    font-size: clamp(1.8rem, 8vw, 3.5rem);
+    margin: 0 0 0.75rem;
+    line-height: 1.1;
+}
+
+/* Descripción (segundo <p>) */
+#inicio .carousel-caption > p:not(:first-child) {
+    color: var(--texto-claro);
+    font-size: clamp(0.85rem, 2.8vw, 1rem);
+    margin-bottom: 1.25rem;
+    max-width: 400px;
+}
+
+/* Tablet en adelante: degradado lateral y caption centrado vertical */
+@media (min-width: 768px) {
+    #inicio .carousel-item::before {
+        background: linear-gradient(to right, rgba(12, 26, 58, 0.85) 0%, rgba(12, 26, 58, 0.4) 40%, rgba(12, 26, 58, 0) 70%);
+    }
+
+    #inicio .carousel-caption {
+        left: 10%;
+        right: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        max-width: 500px;
+    }
+}
+
+/* Tablet: textos más grandes y caption acotado para no tapar a Gaga */
+@media (min-width: 768px) and (max-width: 991px) {
+    #inicio .carousel-caption {
+        left: 5%;
+        top: 38%;
+        max-width: 42%;
+    }
+
+    #inicio .carousel-caption > p:first-child {
+        font-size: 1.1rem;
+        letter-spacing: 4px;
+        margin-bottom: 0.85rem;
+    }
+
+    #inicio .carousel-caption h1,
+    #inicio .carousel-caption h2 {
+        font-size: 3rem;
+        line-height: 1.05;
+        margin-bottom: 1.1rem;
+    }
+
+    #inicio .carousel-caption > p:not(:first-child) {
+        font-size: 1.3rem;
+        line-height: 1.4;
+        margin-bottom: 1.75rem;
+        max-width: 100%;
+    }
+
+    #inicio .carousel-caption .btn {
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: 0;
+        padding: 16px 40px;
+        font-size: 1rem;
+    }
+
+    /* Achicar aire vertical entre secciones */
+    main > section {
+        padding: 35px 0;
+    }
+
+    /* Pegar el párrafo al título de cada sección */
+    #intro .container > p,
+    #musica > .container > h2 + p,
+    #cine > .container > h2 + p,
+    #activismo > .container > h2 + p {
+        margin-bottom: 0.6rem;
+    }
+
+    /* Achicar margen alrededor de las imágenes informativas */
+    #musica figure,
+    #cine figure,
+    #activismo figure,
+    #imagen-look figure,
+    #marca figure,
+    #sobre figure,
+    #contacto figure {
+        margin: 12px 0;
+    }
+
+    /* Botón "Volver al inicio" alineado a la derecha */
+    #volver > .container > .btn {
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    /* Looks icónicos: cuando la 3° card queda sola en la 2° fila, centrarla */
+    #looks ul li:last-child {
+        margin-left: 25%;
+    }
+
+    /* Contacto: foto centrada horizontalmente */
+    #contacto > .container > figure {
+        display: block;
+        max-width: 500px;
+        margin: 12px auto;
+    }
+}
+
+/* ----------------------------------------------------------
+   PC (≥1024px): ajustes específicos para escritorio.
+   En pantallas grandes los textos del banner quedaban chicos
+   comparados con la foto. Acá los agrandamos bastante.
+   ---------------------------------------------------------- */
+@media (min-width: 1024px) {
+    /* Banner con textos más grandes */
+    #inicio .carousel-caption {
+        max-width: 780px;
+    }
+
+    #inicio .carousel-caption > p:first-child {
+        font-size: 1.5rem;
+        letter-spacing: 6px;
+        margin-bottom: 1.3rem;
+    }
+
+    #inicio .carousel-caption h1,
+    #inicio .carousel-caption h2 {
+        font-size: 7rem;
+        line-height: 1;
+        margin-bottom: 1.6rem;
+    }
+
+    #inicio .carousel-caption > p:not(:first-child) {
+        font-size: 1.7rem;
+        line-height: 1.4;
+        margin-bottom: 2.4rem;
+        max-width: 620px;
+    }
+
+    #inicio .carousel-caption .btn {
+        padding: 20px 56px;
+        font-size: 1.2rem;
+        letter-spacing: 2.5px;
+    }
+
+    /* Música y Video: en PC quedan centrados horizontalmente (título, párrafo
+       y card del reproductor). El text-align: left dentro del card preserva
+       la info "Artista / Tema" alineada a la izquierda como estaba. */
+    #musica > .container,
+    #video > .container {
+        text-align: center;
+    }
+
+    .reproductor,
+    .reproductor-video {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    /* Navbar sticky: en PC se queda arriba al scrollear para que el usuario
+       siempre tenga acceso al menú sin volver al inicio.
+       z-index: 1020 es el mismo valor que usa la clase .sticky-top de Bootstrap. */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 1020;
+    }
+
+    /* Smooth scroll nativo (el del browser) + 180px de padding arriba para
+       que la nav sticky no tape el título cuando hacés click en un link del nav.
+       OJO: el smoothScroll de Bootstrap ScrollSpy se SALTA scroll-padding-top
+       (usa scrollTo con offsetTop directo), por eso lo desactivamos en el JS
+       y dejamos que el browser maneje el scroll nativamente. */
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 180px;
+    }
+
+    /* Fade-in al scrollear: las secciones aparecen suaves al entrar al viewport,
+       con un desplazamiento de 60px hacia arriba bien notorio. Usamos cubic-bezier
+       (curva snappy de tipo "ease-out con overshoot suave") para que el efecto
+       se sienta vivo. JS agrega .fade-in-pending al cargar; cuando
+       IntersectionObserver detecta intersección, suma .visible y arranca la
+       transición. Solo en PC. */
+    main > section.fade-in-pending {
+        opacity: 0;
+        transform: translateY(60px);
+        transition:
+            opacity 1s ease-out,
+            transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    main > section.fade-in-pending.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Indicadores del banner (los puntitos abajo) — los reestilizamos
+   como círculos dorados, el activo queda relleno y un poco más grande. */
+#inicio .carousel-indicators {
+    margin-bottom: 30px;
+}
+
+#inicio .carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 2px solid var(--dorado);
+    margin: 0 8px;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+#inicio .carousel-indicators button.active {
+    background-color: var(--dorado);
+    transform: scale(1.2);
+}
+
+/* Flechas prev/next en dorado */
+#inicio .carousel-control-prev-icon,
+#inicio .carousel-control-next-icon {
+    filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(10deg);
+}
+
+/* ============================================
+   5) Sobre Gaga y Contacto
+   --------------------------------------------
+   Ambas secciones comparten el "marco dorado degradado"
+   alrededor de la foto (regla compartida más abajo).
+   #sobre además tiene una animación Ken Burns (zoom + paneo
+   suave) que da sensación de cine.
+   ============================================ */
+#sobre,
+#contacto {
+    background-color: transparent; /* dejamos que se vea la textura del body */
+}
+
+#contacto > .container {
+    text-align: center;
+}
+
+#contacto figure {
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contacto figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+/* PC (≥1024px): la foto de Contacto crece a todo el ancho del contenedor,
+   igual que la de "Sobre Lady Gaga". En tablet/mobile queda acotada. */
+@media (min-width: 1024px) {
+    #contacto figure {
+        max-width: none;
+    }
+
+    /* Forzamos las imágenes de looks a LLENAR el figure.
+       img-fluid de Bootstrap solo pone max-width: 100%, no width: 100%,
+       así que si la imagen intrínseca es chica deja espacio en blanco. */
+    #imagen-look figure img,
+    #looks figure img {
+        width: 100%;
+    }
+}
+
+/* MARCO DORADO DEGRADADO compartido por todas las "figures"
+   de las secciones informativas. Truco de dos backgrounds:
+     - padding-box: navy semi-transparente (fondo interno)
+     - border-box: gradiente dorado (se ve a través del border transparente)
+   Con border: 2px solid transparent + border-radius queda el marco redondeado. */
+#sobre figure,
+#contacto figure,
+#musica figure,
+#cine figure,
+#activismo figure,
+#imagen-look figure,
+#marca figure {
+    margin: 30px 0;
+    background:
+        linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+        linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+/* Ken Burns: la foto de "Sobre Lady Gaga" hace zoom y paneo suave en loop.
+   El overflow:hidden evita que la imagen se vea fuera del marco redondeado
+   cuando crece con la animación. */
+#sobre figure {
+    overflow: hidden;
+}
+
+#sobre figure picture,
+#sobre figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#sobre figure img {
+    animation: ken-burns-sobre 9s ease-in-out infinite alternate;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+@keyframes ken-burns-sobre {
+    0%   { transform: scale(1.05) translate(-4%, 2%); }
+    50%  { transform: scale(1.15) translate(0%, -2%); }
+    100% { transform: scale(1.08) translate(4%, 2%); }
+}
+
+/* Accesibilidad: si el usuario tiene "reducir movimiento" activado en el SO,
+   le sacamos la animación Ken Burns. */
+@media (prefers-reduced-motion: reduce) {
+    #sobre figure img { animation: none; }
+}
+
+/* Botones de sección alineados a la derecha */
+#sobre > .container > .btn,
+#contacto > .container > .btn,
+#looks > .container > .btn,
+#marca > .container > .btn,
+#look-marca > .container > .btn {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    margin-top: 20px;
+    width: fit-content;
+}
+
+/* ============================================
+   6) Marcas
+   --------------------------------------------
+   Grid de 6 tarjetas cuadradas (Versace, Armani, etc.).
+   Cada tarjeta tiene hover: se levanta, escala, rota y
+   queda "flotando" gracias a la animación flotar-marca.
+   ============================================ */
+#marcas {
+    background-color: transparent;
+}
+
+#marcas > .container > ul {
+    margin-top: 40px;
+    gap: 20px 0;
+}
+
+/* Cada tarjeta: cuadrada (aspect-ratio 1:1), centra logo + nombre,
+   fondo negro semitransparente, borde dorado tenue. */
+.tarjeta-marca {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;          /* siempre cuadrada */
+    max-width: 180px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(224, 179, 65, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--texto-claro);
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease,
+                background-color 0.3s ease;
+}
+
+.tarjeta-marca img {
+    max-width: 90%;
+    max-height: 75%;
+    object-fit: contain;
+    margin-bottom: 8px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tarjeta-marca span {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+/* Hover: la tarjeta se levanta, escala y "rota" un poquito, dispara
+   la animación flotar-marca que la mantiene meciéndose. */
+.tarjeta-marca:hover {
+    border-color: var(--dorado);
+    background-color: rgba(0, 0, 0, 0.75);
+    transform: translateY(-12px) scale(1.05) rotate(-1deg);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(224, 179, 65, 0.3);
+    animation: flotar-marca 2s ease-in-out 0.4s infinite;
+}
+
+.tarjeta-marca:hover img {
+    transform: scale(1.12);
+}
+
+.tarjeta-marca:hover span {
+    color: var(--dorado);
+}
+
+@keyframes flotar-marca {
+    0%, 100% { transform: translateY(-12px) scale(1.05) rotate(-1deg); }
+    50%      { transform: translateY(-16px) scale(1.05) rotate(1deg); }
+}
+
+/* PC (≥1024px): "Alexander McQueen" se nos rompía el grid (texto más largo
+   que el resto), así que mostramos "A. Mcqueen" SOLO en PC para que las 6
+   tarjetas queden iguales.
+   - Selector [href*="marca5"]: apunta únicamente al link que va a marca5.html.
+   - font-size: 0 en el <span> oculta el texto real visualmente (sigue ahí
+     para lectores de pantalla → accesible).
+   - ::after inyecta el texto corto, hereda color/uppercase/transición. */
+@media (min-width: 1024px) {
+    .tarjeta-marca[href*="marca5"] span {
+        font-size: 0;
+    }
+    .tarjeta-marca[href*="marca5"] span::after {
+        content: "A. Mcqueen";
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* ============================================
+   7) Página individual de marca (secciones/marcaN.html)
+   --------------------------------------------
+   Cuando se hace click en una tarjeta de marca, se abre
+   una página con título, logo, historia de la casa y
+   un "look-icono" clickeable que lleva al look detalle.
+   ============================================ */
+#marca {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#marca h1 {
+    color: var(--dorado);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 0.5rem;
+}
+
+#marca .marca-lead {
+    color: var(--texto-suave);
+    font-style: italic;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+#marca figure {
+    max-width: 320px;
+    margin-left: 0;
+    margin-right: auto;
+    text-align: center;
+}
+
+#marca figure img {
+    max-height: 160px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+#marca .marca-info h2 {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 12px;
+}
+
+#marca .marca-info p {
+    line-height: 1.7;
+    color: var(--texto-claro);
+    margin-bottom: 1rem;
+}
+
+/* "Look icónico" en la página de marca: card clickeable que linkea al look detalle.
+   Tiene una mini foto a la izquierda y título + descripción a la derecha. */
+#marca .look-icono {
+    display: block;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(224, 179, 65, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 30px 0;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#marca .look-icono:hover {
+    background: rgba(0, 0, 0, 0.75);
+    border-color: var(--dorado);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 18px rgba(224, 179, 65, 0.25);
+}
+
+#marca .look-icono .look-mini {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+}
+
+#marca .look-icono img {
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    border: 1px solid rgba(224, 179, 65, 0.3);
+}
+
+@media (min-width: 768px) {
+    #marca .look-icono img {
+        width: 140px;
+        height: 180px;
+    }
+
+    #marca .look-icono .look-mini {
+        gap: 25px;
+    }
+}
+
+#marca .look-icono .look-texto {
+    flex: 1;
+}
+
+#marca .look-icono h3 {
+    font-size: 0.95rem;
+    margin: 0 0 8px;
+    color: var(--dorado);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+#marca .look-icono p {
+    margin-bottom: 5px;
+    line-height: 1.45;
+    font-size: 0.82rem;
+    color: var(--texto-claro);
+}
+
+#marca .look-icono strong {
+    color: var(--dorado);
+    letter-spacing: 1px;
+}
+
+#marca .look-icono .btn-ver-mas {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 16px;
+    border: 1px solid rgba(224, 179, 65, 0.5);
+    border-radius: 30px;
+    color: var(--dorado);
+    font-size: 0.7rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+#marca .look-icono:hover .btn-ver-mas {
+    background-color: rgba(224, 179, 65, 0.2);
+    border-color: var(--dorado);
+    color: var(--dorado-claro);
+}
+
+/* ============================================
+   Página individual de look de marca (marcaN-look.html)
+   --------------------------------------------
+   Detalle del look: foto grande con marco dorado +
+   ficha técnica (año, diseñador, evento, etc.).
+   ============================================ */
+#look-marca {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+#look-marca h1 {
+    color: var(--dorado);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 0.5rem;
+}
+
+#look-marca .marca-lead {
+    color: var(--texto-suave);
+    font-style: italic;
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+    letter-spacing: 1px;
+}
+
+#look-marca figure {
+    margin: 30px 0;
+    background:
+        linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+        linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+#look-marca figure img {
+    max-height: 480px;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+    border-radius: 10px;
+}
+
+#look-marca .marca-info h2 {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    margin-bottom: 12px;
+}
+
+#look-marca .marca-info p {
+    line-height: 1.7;
+    color: var(--texto-claro);
+    margin-bottom: 1rem;
+}
+
+#look-marca .marca-info ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 15px 0;
+}
+
+#look-marca .marca-info li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(224, 179, 65, 0.15);
+    color: var(--texto-claro);
+}
+
+#look-marca .marca-info li:last-child {
+    border-bottom: none;
+}
+
+#look-marca .marca-info strong {
+    color: var(--dorado);
+    letter-spacing: 1px;
+    margin-right: 8px;
+}
+
+/* ============================================
+   8) Looks icónicos (sección del index)
+   --------------------------------------------
+   Grid de 3 cards (vestido de carne, burbujas plásticas,
+   alta costura roja) que linkean a la página de detalle
+   del look correspondiente (look1.html, look2.html, etc.).
+   Cada card tiene hover con float + zoom de la imagen.
+   ============================================ */
+#looks ul {
+    margin: 40px 0;
+    gap: 20px 0;
+}
+
+/* La <li> es "card" + "col-*" en el mismo elemento → el padding del gutter
+   del col queda DENTRO de la card. Para que ese padding actúe como GAP
+   entre cards en la misma fila (no como espacio inerte dentro de cada card),
+   pintamos los estilos visuales en ::before, inset por la mitad del gutter.
+   Así la card visible coincide con el área de contenido del col, y el
+   padding del col queda como separación natural entre cards. */
+#looks .card {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: left;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#looks .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--bs-gutter-x, 1.5rem) / 2);
+    right: calc(var(--bs-gutter-x, 1.5rem) / 2);
+    background-color: rgba(20, 37, 82, 0.6);
+    border: 1px solid rgba(224, 179, 65, 0.15);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    transition: border-color 0.3s ease, box-shadow 0.4s ease;
+    z-index: 0;
+}
+
+/* Contenido (figure y card-body) por encima del ::before */
+#looks .card > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Figure: queda inset por el col padding (mismo borde que la card visible).
+   Esquinas redondeadas arriba para que el clip de la imagen coincida
+   con el border-radius del ::before. */
+#looks figure {
+    margin: 0;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#looks figure img {
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Hover: la card se levanta + flota; el ::before cambia borde y sombra. */
+#looks .card:hover {
+    transform: translateY(-10px);
+    animation: flotar-look 2.5s ease-in-out 0.4s infinite;
+}
+
+#looks .card:hover::before {
+    border-color: rgba(224, 179, 65, 0.5);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.55),
+        0 0 25px rgba(224, 179, 65, 0.25);
+}
+
+#looks .card:hover figure img {
+    transform: scale(1.08);
+}
+
+@keyframes flotar-look {
+    0%, 100% { transform: translateY(-10px); }
+    50%      { transform: translateY(-16px); }
+}
+
+/* Card-body de Bootstrap: pisamos el padding 1rem default por 20px
+   y sacamos cualquier background/border que pudiera traer. */
+#looks .card-body {
+    padding: 20px;
+    background-color: transparent;
+    border: 0;
+}
+
+/* Bootstrap .card-title fuerza color heredado de .card (gris oscuro).
+   Forzamos el dorado de nuestra paleta. */
+#looks .card h3 {
+    color: var(--dorado);
+    font-size: 1rem;
+    padding: 0;
+    margin: 0 0 8px;
+}
+
+/* Bootstrap .card-link viene en azul. Lo pasamos a dorado como el resto del sitio. */
+#looks .card-body a {
+    color: var(--dorado);
+    display: inline-block;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
+#looks .card-body a:hover {
+    color: var(--dorado-claro);
+}
+
+#looks .card-body a::after {
+    content: " →";
+}
+
+/* ============================================
+   9) Música y Video (reproductores)
+   --------------------------------------------
+   Dos secciones casi gemelas: una con <audio> embebido
+   (Música) y otra con <video> (Video). Cada una tiene
+   su "card reproductor" con el mismo marco dorado degradado
+   que las figures de Sobre/Contacto.
+   ============================================ */
+#musica {
+    background-color: transparent;
+}
+
+/* Card del reproductor de audio (Música) */
+.reproductor {
+    margin-top: 30px;
+    padding: 30px;
+    background:
+        linear-gradient(rgba(20, 37, 82, 0.6), rgba(20, 37, 82, 0.6)) padding-box,
+        linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(224, 179, 65, 0.12);
+    max-width: 600px;
+}
+
+.reproductor-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(224, 179, 65, 0.2);
+}
+
+.reproductor-artista {
+    color: var(--texto-suave);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.reproductor-tema {
+    color: var(--dorado);
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.reproductor audio {
+    width: 100%;
+    height: 44px;
+    border-radius: 30px;
+    outline: none;
+}
+
+/* Pseudo-elementos -webkit- para pintar el panel del <audio> nativo
+   en navy/dorado. Solo funciona en Chrome/Edge (basados en Chromium);
+   en Firefox queda el control por default — no es un bug, es por
+   limitación del navegador. */
+.reproductor audio::-webkit-media-controls-panel {
+    background-color: rgba(5, 13, 31, 0.85);
+    border-radius: 30px;
+}
+
+.reproductor audio::-webkit-media-controls-play-button,
+.reproductor audio::-webkit-media-controls-mute-button {
+    filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(10deg);
+}
+
+.reproductor audio::-webkit-media-controls-current-time-display,
+.reproductor audio::-webkit-media-controls-time-remaining-display {
+    color: var(--texto-claro);
+}
+
+/* Card del reproductor de video — mismo marco dorado pero más ancha */
+#video {
+    background-color: transparent;
+}
+
+.reproductor-video {
+    margin-top: 30px;
+    padding: 25px;
+    background:
+        linear-gradient(rgba(20, 37, 82, 0.6), rgba(20, 37, 82, 0.6)) padding-box,
+        linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(224, 179, 65, 0.12);
+    max-width: 900px;
+}
+
+/* Soporta tanto <video> (archivo local) como <iframe> (YouTube embed).
+   El iframe no tiene dimensiones intrínsecas como el video, así que le
+   forzamos aspect-ratio 16:9 para que mantenga la proporción correcta. */
+.reproductor-video video,
+.reproductor-video iframe {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 12px;
+    display: block;
+    background-color: var(--navy-oscuro);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   10) FAQ — Preguntas frecuentes (accordion de Bootstrap)
+   --------------------------------------------
+   Bootstrap arma el accordion en blanco/gris/azul; pisamos sus
+   CSS vars para que entre en la paleta navy + dorado del sitio.
+   El primer item arranca abierto (collapse show) para que el
+   usuario vea que las preguntas se despliegan.
+   ============================================ */
+#faq {
+    background-color: transparent;
+}
+
+#faq > .container {
+    text-align: center;
+}
+
+/* Override de los CSS vars de Bootstrap del accordion */
+#faq .accordion {
+    --bs-accordion-bg: rgba(20, 37, 82, 0.6);
+    --bs-accordion-color: var(--texto-claro);
+    --bs-accordion-border-color: rgba(224, 179, 65, 0.25);
+    --bs-accordion-border-width: 1px;
+    --bs-accordion-border-radius: 12px;
+    --bs-accordion-inner-border-radius: 11px;
+    --bs-accordion-btn-color: var(--dorado);
+    --bs-accordion-btn-bg: rgba(20, 37, 82, 0.6);
+    --bs-accordion-btn-padding-x: 24px;
+    --bs-accordion-btn-padding-y: 18px;
+    --bs-accordion-btn-focus-border-color: var(--dorado);
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(224, 179, 65, 0.25);
+    --bs-accordion-active-color: var(--dorado-claro);
+    --bs-accordion-active-bg: rgba(224, 179, 65, 0.12);
+    --bs-accordion-body-padding-x: 24px;
+    --bs-accordion-body-padding-y: 20px;
+
+    /* Chevron dorado (Bootstrap lo trae gris oscuro). SVG inline con
+       fill=%23e0b341 (dorado) y %23f1c860 (dorado-claro) para el activo. */
+    --bs-accordion-btn-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e0b341'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f1c860'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+
+    max-width: 900px;
+    margin: 30px auto 0;
+    text-align: left;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Botón pregunta: dorado, semibold, espaciado, mayúsculas como los títulos */
+#faq .accordion-button {
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/* Línea divisoria dorada cuando el item está abierto */
+#faq .accordion-button:not(.collapsed) {
+    box-shadow: inset 0 -1px 0 rgba(224, 179, 65, 0.3);
+}
+
+/* Cuerpo de la respuesta */
+#faq .accordion-body {
+    color: var(--texto-claro);
+    line-height: 1.65;
+    font-size: 0.95rem;
+}
+
+/* Newsletter CTA debajo del accordion. El botón dispara un alert
+   dinámico (ver <script> al final del index.html). */
+#faq .newsletter-cta {
+    margin-top: 40px;
+    text-align: center;
+}
+
+#faq .newsletter-cta > p {
+    color: var(--texto-claro);
+    margin-bottom: 16px;
+}
+
+/* Live alert disparado por JS: pisamos los CSS vars de Bootstrap para que
+   el alert entre en la paleta navy + dorado (no en el amarillo default
+   que trae alert-warning, ni el azul/rojo de los demás tipos). */
+#faq #liveAlertPlaceholder .alert {
+    --bs-alert-bg: rgba(20, 37, 82, 0.85);
+    --bs-alert-color: var(--texto-claro);
+    --bs-alert-border-color: var(--dorado);
+    --bs-alert-link-color: var(--dorado-claro);
+
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 0 auto 20px;
+    max-width: 700px;
+    text-align: left;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+/* Btn-close (la X) viene en SVG oscuro; lo tintamos a dorado con filter
+   (mismo truco que usamos para los controles del carousel y del audio). */
+#faq #liveAlertPlaceholder .btn-close {
+    filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(10deg);
+}
+
+/* ============================================
+   11) Formulario de contacto (secciones/contacto.html)
+   --------------------------------------------
+   Inputs con estilo "dark glass": fondo negro semi,
+   borde dorado tenue, foco con glow dorado.
+   ============================================ */
+#formulario form {
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+#formulario .form-label {
+    color: var(--dorado);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+}
+
+#formulario .form-control {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(224, 179, 65, 0.25);
+    border-radius: 8px;
+    color: var(--texto-claro);
+    padding: 12px 16px;
+}
+
+#formulario .form-control::placeholder {
+    color: rgba(199, 201, 209, 0.5);
+}
+
+#formulario .form-control:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--dorado);
+    box-shadow: 0 0 0 3px rgba(224, 179, 65, 0.15);
+    color: var(--texto-claro);
+    outline: none;
+}
+
+#formulario button[type="submit"] {
+    margin-top: 10px;
+}
+
+/* Bajo el formulario, una lista de "canales" (Instagram, mail, etc.)
+   en formato pills delineados — se ven como mini-botones. */
+.redes-contacto {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    padding: 0;
+}
+
+.redes-contacto a {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid rgba(224, 179, 65, 0.4);
+    border-radius: 30px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.redes-contacto a:hover {
+    background-color: rgba(224, 179, 65, 0.15);
+    border-color: var(--dorado);
+}
+
+/* ============================================
+   11) Separador decorativo entre secciones
+   --------------------------------------------
+   Línea fina dorada gradiente (transparente → dorado → transparente)
+   con glow sutil. La misma estética que el borde inferior del navbar.
+   - Se inserta como ::before en cada <section> que viene DESPUÉS de otra
+     section (selector `section + section`) → así NO aparece arriba del
+     primer banner.
+   - También antes del <footer>, marcando la transición entre la textura
+     del body y la zona sólida del pie.
+   - position: absolute + top:0 → pega la línea EXACTAMENTE al borde superior
+     de la sección/footer, sin importar el padding interno.
+   ============================================ */
+main > section + section,
+footer {
+    position: relative; /* hace falta para anclar el ::before absoluto */
+}
+
+main > section + section::before,
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--dorado) 50%, transparent 100%);
+    box-shadow: 0 0 12px rgba(224, 179, 65, 0.3);
+    pointer-events: none; /* la línea no debería interceptar clicks */
+    z-index: 1;
+}
+
+/* ============================================
+   12) Footer
+   --------------------------------------------
+   Pie de página común a TODAS las páginas: 5 íconos de
+   redes sociales en círculos dorados + copyright.
+   Nota: ya NO usa border-top, el límite visual con el
+   resto del sitio lo hace el separador dorado de arriba.
+   ============================================ */
+footer {
+    background-color: var(--navy-fondo);
+    padding: 40px 0;
+}
+
+footer ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+/* Cada link de red social: círculo dorado de 40x40 que se ilumina
+   y se levanta al hacer hover. */
+footer ul a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--dorado);
+    border-radius: 50%;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+footer ul a:hover {
+    background-color: rgba(224, 179, 65, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(224, 179, 65, 0.25);
+}
+
+footer p {
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Datos de los alumnos según consigna del TP2 */
+footer .footer-alumnos {
+    color: var(--dorado);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 6px;
+}
+
+footer .footer-carrera {
+    color: var(--texto-claro);
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    margin: 4px 0 16px;
+}
