@@ -51,10 +51,25 @@
                                 <li><a class="dropdown-item" href="secciones/look3.html">Alta costura roja</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        <!-- Dropdown "Música" que agrupa Música / Video / Discografía.
+                             Solo visible en PC (>=1024px) vía CSS .nav-musica-pc.
+                             En mobile/tablet se ocultan estos y se muestran los 3 items
+                             planos de abajo (.nav-musica-flat). -->
+                        <li class="nav-item dropdown nav-musica-pc">
+                            <a class="nav-link dropdown-toggle" href="#musica" role="button" data-bs-toggle="dropdown" aria-expanded="false">Música</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#musica">Música</a></li>
+                                <li><a class="dropdown-item" href="#video">Video</a></li>
+                                <li><a class="dropdown-item" href="secciones/discografia.html">Discografía</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item nav-musica-flat">
+                            <a class="nav-link" href="secciones/discografia.html">Discografía</a>
+                        </li>
+                        <li class="nav-item nav-musica-flat">
                             <a class="nav-link" href="#musica">Música</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item nav-musica-flat">
                             <a class="nav-link" href="#video">Video</a>
                         </li>
                         <li class="nav-item">

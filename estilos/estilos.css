@@ -377,6 +377,23 @@ header {
     }
 }
 
+/* Dropdown "Música" del nav: solo en PC (>=1024px).
+   En mobile/tablet siguen los 3 items planos (Discografía, Música, Video
+   con la clase .nav-musica-flat). En PC se ocultan los planos y aparece
+   un dropdown agrupado (.nav-musica-pc) para que la nav no quede amontonada. */
+.nav-musica-pc {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .nav-musica-pc {
+        display: block;
+    }
+    .nav-musica-flat {
+        display: none;
+    }
+}
+
 /* ============================================
    4) Banner / Inicio (carousel de Bootstrap)
    --------------------------------------------
@@ -2268,5 +2285,209 @@ footer .footer-carrera {
 
     #marca .marca-info p {
         font-size: 1.15rem;
+    }
+}
+
+/* ============================================
+   13) Discografía (secciones/discografia.html)
+   --------------------------------------------
+   Galería de 4 tapas de discos. Mobile-first:
+     - Mobile: 1 columna (col-12) → tapas grandes, una abajo de la otra.
+     - Tablet: 2 columnas (col-md-6) → grilla 2×2.
+     - PC:     4 columnas (col-lg-3) → una sola fila.
+   Cada tapa es cuadrada (aspect-ratio 1:1), con marco dorado
+   sutil y nombre del álbum + año debajo.
+   ============================================ */
+#discografia > .container > h1 {
+    color: var(--dorado);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#discografia > .container > p {
+    color: var(--texto-suave);
+    margin-bottom: 2rem;
+}
+
+#discografia .galeria-discos {
+    margin-top: 30px;
+    gap: 30px 0; /* solo separación vertical (las columnas ya tienen gutter de Bootstrap) */
+}
+
+/* Cada tarjeta de disco: tapa + bloque de info (título + año). */
+.tarjeta-disco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(224, 179, 65, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.4s ease,
+                border-color 0.3s ease;
+}
+
+/* El <button> que envuelve la tapa: reset de estilos default del navegador
+   (background, border, padding) y look de "marco interno" sutil que se
+   intensifica en hover/focus para indicar que es clickeable. */
+.tarjeta-disco .disco-trigger {
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 1 / 1; /* la tapa queda cuadrada aunque la foto no lo sea */
+    overflow: hidden;
+    border-radius: 8px;
+    padding: 0;
+    background: transparent;
+    border: 2px solid rgba(224, 179, 65, 0.25);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.tarjeta-disco .disco-trigger img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Hover/focus en el botón: el marco se dora y la imagen escala un poco */
+.tarjeta-disco .disco-trigger:hover,
+.tarjeta-disco .disco-trigger:focus-visible {
+    border-color: var(--dorado);
+    outline: none;
+}
+
+.tarjeta-disco .disco-trigger:hover img,
+.tarjeta-disco .disco-trigger:focus-visible img {
+    transform: scale(1.05);
+}
+
+.tarjeta-disco .disco-info {
+    text-align: center;
+    margin-top: 14px;
+}
+
+.tarjeta-disco .disco-info h2 {
+    color: var(--dorado);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+.tarjeta-disco .disco-info p {
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* Hover: la tarjeta se levanta y el borde se vuelve dorado pleno */
+.tarjeta-disco:hover {
+    border-color: var(--dorado);
+    transform: translateY(-6px);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.5),
+        0 0 18px rgba(224, 179, 65, 0.25);
+}
+
+/* ----- Tablet (768–991): 2 columnas, tarjetas un poco más chicas ----- */
+@media (min-width: 768px) and (max-width: 991px) {
+    #discografia .galeria-discos {
+        gap: 24px 0;
+    }
+
+    .tarjeta-disco .disco-info h2 {
+        font-size: 1.05rem;
+    }
+}
+
+/* ----- PC (≥1024px): 4 columnas en una sola fila ----- */
+@media (min-width: 1024px) {
+    #discografia > .container > h1 {
+        font-size: 2.5rem;
+    }
+
+    #discografia .galeria-discos {
+        margin-top: 50px;
+    }
+
+    .tarjeta-disco {
+        padding: 14px;
+    }
+
+    .tarjeta-disco .disco-info h2 {
+        font-size: 1rem;
+    }
+
+    .tarjeta-disco .disco-info p {
+        font-size: 0.8rem;
+    }
+}
+
+/* --------------------------------------------
+   Modal de cada disco
+   --------------------------------------------
+   Mismo lenguaje visual que .look-modal (fondo navy + marco dorado +
+   X blanca) para mantener coherencia con los modales de looks de marca.
+   Se abre al clickear la tapa (botón .disco-trigger con
+   data-bs-toggle="modal"). */
+.disco-modal .modal-content {
+    background-color: var(--navy-fondo);
+    color: var(--texto-claro);
+    border: 2px solid rgba(224, 179, 65, 0.5);
+    border-radius: 16px;
+}
+
+.disco-modal .modal-header {
+    border-bottom: 1px solid rgba(224, 179, 65, 0.25);
+    padding: 1rem 1.25rem;
+}
+
+.disco-modal .modal-title {
+    color: var(--dorado);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* X del header: la de Bootstrap viene negra → la invertimos a blanca
+   para que se vea sobre el fondo navy. */
+.disco-modal .btn-close {
+    filter: invert(1) grayscale(100%) brightness(1.5);
+}
+
+.disco-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.disco-modal .disco-modal-img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.disco-modal .modal-body p {
+    color: var(--texto-claro);
+    line-height: 1.7;
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* En PC el título del modal puede respirar un poquito más */
+@media (min-width: 1024px) {
+    .disco-modal .modal-title {
+        font-size: 1.3rem;
+    }
+
+    .disco-modal .modal-body p {
+        font-size: 1.05rem;
     }
 }
