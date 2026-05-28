@@ -2059,6 +2059,7 @@ footer .footer-carrera {
         margin-bottom: 1rem;
         line-height: 1.7;
         color: var(--texto-claro);
+        font-size: 1.15rem;
     }
 
     .pagina-sobre .sobre-info > p:last-child {
@@ -2139,7 +2140,10 @@ footer .footer-carrera {
     #look-marca > .container > .marca-lead { grid-area: lead; }
 
     /* Figura: ancla en la celda "figura". Reseteamos width/padding
-       del col-md-7 porque dentro del grid los maneja la celda. */
+       del col-md-7 porque dentro del grid los maneja la celda.
+       display:flex + align/justify:center vertical y horizontalmente
+       centra la imagen dentro del marco dorado, por si el grid estira
+       el figure (ej. cuando el alto de la galería empuja la fila). */
     #look-marca .look-fila > .look-figura-principal {
         grid-area: figura;
         width: 100%;
@@ -2148,6 +2152,9 @@ footer .footer-carrera {
         padding-left: 0;
         padding-right: 0;
         margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Galería: spans rows "figura"+"intro" (3-4). El alto de esas filas
@@ -2229,5 +2236,37 @@ footer .footer-carrera {
 
     #look-marca > .container > .btn {
         grid-area: boton;
+    }
+
+    /* Foto principal: subimos el max-height a 720px en PC (el default 480
+       quedaba chico en viewports tipo 1440×891, donde la celda del grid es
+       ~750px de ancho a partir de xxl=1320 y el image quedaba con mucho
+       aire al costado). */
+    #look-marca .look-figura-principal img {
+        max-height: 720px;
+    }
+
+    /* Tipografía de las cards de info: bumpeamos h2/p/ul para que el texto
+       respire mejor en pantallas grandes (PC ≥1024). Mismo tamaño base que
+       .pagina-sobre .sobre-info para mantener consistencia entre páginas. */
+    #look-marca .marca-info > .look-bloque > h2 {
+        font-size: 1.55rem;
+    }
+
+    #look-marca .marca-info > .look-bloque > p,
+    #look-marca .marca-info > .look-bloque > ul {
+        font-size: 1.15rem;
+        line-height: 1.7;
+    }
+
+    /* Página de marca (marcaN.html) — mismo bump tipográfico que las cards
+       de look para que el texto sea consistente entre páginas de la marca
+       y de los looks. */
+    #marca .marca-info h2 {
+        font-size: 1.55rem;
+    }
+
+    #marca .marca-info p {
+        font-size: 1.15rem;
     }
 }
