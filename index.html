@@ -30,13 +30,26 @@
                             <a class="nav-link" href="#inicio">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sobre">Sobre Gaga</a>
+                            <a class="nav-link" href="secciones/sobre.html">Sobre Gaga</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#marcas">Marcas</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#marcas" role="button" data-bs-toggle="dropdown" aria-expanded="false">Marcas</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="secciones/marca1.html">Versace</a></li>
+                                <li><a class="dropdown-item" href="secciones/marca2.html">Armani</a></li>
+                                <li><a class="dropdown-item" href="secciones/marca3.html">Valentino</a></li>
+                                <li><a class="dropdown-item" href="secciones/marca4.html">Mugler</a></li>
+                                <li><a class="dropdown-item" href="secciones/marca5.html">Alexander McQueen</a></li>
+                                <li><a class="dropdown-item" href="secciones/marca6.html">Gucci</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#looks">Looks icónicos</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#looks" role="button" data-bs-toggle="dropdown" aria-expanded="false">Looks icónicos</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="secciones/look1.html">Vestido de carne</a></li>
+                                <li><a class="dropdown-item" href="secciones/look2.html">Burbujas plásticas</a></li>
+                                <li><a class="dropdown-item" href="secciones/look3.html">Alta costura roja</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#musica">Música</a>
@@ -48,7 +61,7 @@
                             <a class="nav-link" href="#faq">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contacto">Contacto</a>
+                            <a class="nav-link" href="secciones/contacto.html">Contacto</a>
                         </li>
                     </ul>
                 </div>
@@ -76,7 +89,7 @@
                     <div class="carousel-caption">
                         <p>Estilo icónico. Moda sin miedo.</p>
                         <h1>Lady Gaga</h1>
-                        <p>El vestuario que dio vida a su arte.</p>
+                        <p>Artista, ícono y visionaria.</p>
                         <a href="#sobre" class="btn btn-outline-warning">Explorar</a>
                     </div>
                 </li>
@@ -351,7 +364,11 @@
                 <div class="newsletter-cta">
                     <p>¿Querés enterarte de las próximas novedades de Gaga?</p>
                     <div id="liveAlertPlaceholder"></div>
-                    <button id="liveAlertBtn" type="button" class="btn btn-outline-warning">Suscribite al newsletter</button>
+                    <form id="newsletterForm" class="newsletter-form">
+                        <label for="newsletterEmail" class="visually-hidden">Correo electrónico</label>
+                        <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="tu@email.com" required>
+                        <button id="liveAlertBtn" type="submit" class="btn btn-outline-warning">Suscribite al newsletter</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -392,10 +409,14 @@
     <script src="js/bootstrap.bundle.min.js"></script>
 
     <!--
-      Live alert: al hacer click en "Suscribite al newsletter", se inserta
+      Newsletter: al enviar el form (input email + botón "Suscribite"), se inserta
       dinámicamente un alert dismissible dentro de #liveAlertPlaceholder.
       Patrón oficial de Bootstrap (createElement + innerHTML + append),
       tal cual mostró la profe en la slide "Alert con JavaScript".
+
+      La validación de email vacío / mal formado la hace el browser nativamente
+      gracias a type="email" + required en el <input>, así que el alert recién
+      aparece cuando el mail es válido.
     -->
     <script>
         const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
@@ -411,10 +432,15 @@
             alertPlaceholder.append(wrapper)
         }
 
-        const alertTrigger = document.getElementById('liveAlertBtn')
-        if (alertTrigger) {
-            alertTrigger.addEventListener('click', () => {
+        const newsletterForm = document.getElementById('newsletterForm')
+        const newsletterEmail = document.getElementById('newsletterEmail')
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault()
+                // Limpiar alertas previas para no acumularlas si el usuario clickea varias veces
+                alertPlaceholder.innerHTML = ''
                 appendAlert('¡Gracias por suscribirte! Pronto recibirás las novedades de Gaga en tu correo.', 'warning')
+                newsletterEmail.value = ''
             })
         }
     </script>

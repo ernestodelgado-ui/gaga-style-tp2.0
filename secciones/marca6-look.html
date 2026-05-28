@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="../multimedia/favicon.svg">
-    <title>Vestido barroco — Versace × Gaga</title>
+    <title>Mujer Gucci — Gucci × Gaga</title>
     <link rel="stylesheet" href="../estilos/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,20 +60,19 @@
     <main>
         <section id="look-marca">
             <div class="container">
-                <h1>Vestido barroco</h1>
-                <p class="marca-lead">Versace × Lady Gaga · 2014</p>
+                <h1>Mujer Gucci</h1>
+                <p class="marca-lead">Gucci × Lady Gaga · 2021</p>
 
-                <!-- Foto principal + galería 2x2.
-                     En mobile la galería se oculta (la grilla colapsa a una sola columna y solo
-                     queda la foto principal). En tablet y PC: foto principal a la izquierda y
-                     grilla 2x2 de thumbs a la derecha. Cada thumb abre un modal de Bootstrap
-                     con la versión grande de la foto + texto descriptivo. -->
+                <!-- Foto principal + galería 2x3. Las 6 imágenes de la galería se comparten
+                     entre todas las marcas (carpeta multimedia/looks-marca/galeria/marca1-*).
+                     En mobile la galería se oculta. Cada thumb abre un modal de Bootstrap
+                     con la versión grande + texto descriptivo. -->
                 <div class="row look-fila align-items-start">
                     <figure class="col-12 col-md-7 look-figura-principal">
                         <picture>
-                            <source media="(max-width: 767px)" srcset="../multimedia/looks-marca/marca1-look_mobile.webp">
-                            <source media="(max-width: 991px)" srcset="../multimedia/looks-marca/marca1-look_tablet.webp">
-                            <img src="../multimedia/looks-marca/marca1-look_pc.webp" class="img-fluid" alt="Look barroco de Versace en Lady Gaga">
+                            <source media="(max-width: 767px)" srcset="../multimedia/looks-marca/marca6-look_mobile.png">
+                            <source media="(max-width: 991px)" srcset="../multimedia/looks-marca/marca6-look_tablet.png">
+                            <img src="../multimedia/looks-marca/marca6-look_pc.png" class="img-fluid" alt="Look Gucci de Lady Gaga en House of Gucci">
                         </picture>
                     </figure>
 
@@ -81,65 +80,62 @@
                         <ul class="row list-unstyled g-3">
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto1">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb1.webp" class="img-fluid" alt="Detalle 1 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb1.webp" class="img-fluid" alt="Detalle 1 del look">
                                 </button>
                             </li>
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto2">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb2.webp" class="img-fluid" alt="Detalle 2 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb2.webp" class="img-fluid" alt="Detalle 2 del look">
                                 </button>
                             </li>
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto3">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb3.webp" class="img-fluid" alt="Detalle 3 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb3.webp" class="img-fluid" alt="Detalle 3 del look">
                                 </button>
                             </li>
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto4">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb4.webp" class="img-fluid" alt="Detalle 4 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb4.webp" class="img-fluid" alt="Detalle 4 del look">
                                 </button>
                             </li>
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto5">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb5.webp" class="img-fluid" alt="Detalle 5 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb5.webp" class="img-fluid" alt="Detalle 5 del look">
                                 </button>
                             </li>
                             <li class="col-6">
                                 <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto6">
-                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb6.webp" class="img-fluid" alt="Detalle 6 del vestido barroco de Versace">
+                                    <img src="../multimedia/looks-marca/galeria/marca1-thumb6.webp" class="img-fluid" alt="Detalle 6 del look">
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 3 bloques de info. En mobile/tablet son divs transparentes
-                     que stackean vertical (sin cambio visual). En PC cada bloque
-                     se vuelve una "card" con marco dorado y se reubica en el grid
-                     (intro al lado de la galería, detalles+importa abajo lado a lado). -->
+                <!-- 3 bloques de info (transparentes en mobile/tablet, cards en PC). -->
                 <article class="marca-info">
                     <div class="look-bloque look-bloque-intro">
                         <h2>El look</h2>
-                        <p>Vestido drapeado de inspiración barroca, en seda con bordados dorados y prints recargados característicos de la casa. Una silueta clásica que mezcla el sello de Donatella Versace —escotes pronunciados, dramatismo controlado, oro por todos lados— con la teatralidad propia de la era ARTPOP de Lady Gaga.</p>
+                        <p>Conjunto inspirado en el archivo Gucci de los años setenta. Pieles voluminosas, cinturas marcadas, prints del monograma GG, gafas oversize y joyas pesadas. Usado durante el press tour de House of Gucci, donde Lady Gaga construyó cada aparición pública como una extensión del personaje que interpretaba en el cine: Patrizia Reggiani.</p>
                     </div>
 
                     <div class="look-bloque look-bloque-detalles">
                         <h2>Detalles</h2>
                         <ul>
-                            <li><strong>Diseñadora:</strong> Donatella Versace</li>
-                            <li><strong>Casa:</strong> Versace</li>
-                            <li><strong>Año:</strong> 2014</li>
-                            <li><strong>Era:</strong> ARTPOP</li>
+                            <li><strong>Casa:</strong> Gucci</li>
+                            <li><strong>Película:</strong> House of Gucci (2021)</li>
+                            <li><strong>Director:</strong> Ridley Scott</li>
+                            <li><strong>Personaje:</strong> Patrizia Reggiani</li>
                         </ul>
                     </div>
 
                     <div class="look-bloque look-bloque-importa">
                         <h2>Por qué importa</h2>
-                        <p>Es la materialización visual del homenaje que Gaga le había dedicado a Donatella en la canción "Donatella" de su álbum ARTPOP (2013). La cantante encarna en pasarela y prensa a la diosa griega que el propio Versace pintó tantas veces en sus prints, convertida en una sola imagen: oro, mediterráneo, exceso.</p>
+                        <p>Gaga no solo interpretó a Patrizia Reggiani en el cine: la encarnó en cada alfombra roja del press tour. La frontera entre la cantante y el personaje se borró durante meses, y la figura de Reggiani —la mujer condenada por el asesinato de Maurizio Gucci en 1995— se filtró en cada aparición. Gaga se transformó en imagen viva del archivo Gucci.</p>
                     </div>
                 </article>
 
-                <a href="marca1.html" class="btn btn-outline-warning">Volver a Versace</a>
+                <a href="marca6.html" class="btn btn-outline-warning">Volver a Gucci</a>
             </div>
         </section>
     </main>
@@ -169,10 +165,10 @@
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto1.webp" class="img-fluid look-modal-img" alt="Detalle 1 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto1.webp" class="img-fluid look-modal-img" alt="Detalle 1 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>Plano cerrado del vestido drapeado en seda con bordados dorados. Los prints recargados —cabeza de Medusa, motivos griegos— son la firma inconfundible de la casa Versace.</p>
+                            <p>Plano cerrado de un vestido drapeado en seda con bordados dorados. Los prints recargados —cabeza de Medusa, motivos griegos— son la firma inconfundible de Versace.</p>
                         </div>
                     </div>
                 </div>
@@ -190,10 +186,10 @@
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto2.webp" class="img-fluid look-modal-img" alt="Detalle 2 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto2.webp" class="img-fluid look-modal-img" alt="Detalle 2 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>Pose de campaña fotografiada por Mert Alas y Marcus Piggott. Lady Gaga encarna a la diosa griega que Donatella Versace evoca temporada tras temporada.</p>
+                            <p>Pose de campaña fotografiada por Mert Alas y Marcus Piggott. Lady Gaga encarna a la diosa griega que las casas de alta costura evocan temporada tras temporada.</p>
                         </div>
                     </div>
                 </div>
@@ -211,10 +207,10 @@
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto3.webp" class="img-fluid look-modal-img" alt="Detalle 3 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto3.webp" class="img-fluid look-modal-img" alt="Detalle 3 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>El drapeado en oro y la caída de la seda repiten el gesto barroco que Gianni y Donatella convirtieron en marca de la casa: dramatismo controlado y sensualidad descarada.</p>
+                            <p>El drapeado en oro y la caída de la seda repiten el gesto barroco italiano: dramatismo controlado, sensualidad descarada y cita constante al imaginario clásico.</p>
                         </div>
                     </div>
                 </div>
@@ -226,16 +222,16 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto4Label">Era ARTPOP</h2>
+                    <h2 class="modal-title" id="galeriaFoto4Label">Imagen icónica</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto4.webp" class="img-fluid look-modal-img" alt="Detalle 4 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto4.webp" class="img-fluid look-modal-img" alt="Detalle 4 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>Imagen icónica de la era ARTPOP (2013-2014). Gaga le había dedicado a Donatella la canción "Donatella" y al año siguiente fue la cara de la campaña primavera-verano de la casa.</p>
+                            <p>Una de las imágenes más reproducidas de Lady Gaga: campaña fotografiada como editorial puro, donde cada accesorio y cada gesto fue calculado al detalle.</p>
                         </div>
                     </div>
                 </div>
@@ -247,16 +243,16 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto5Label">Cartera Medusa</h2>
+                    <h2 class="modal-title" id="galeriaFoto5Label">Detalle de accesorio</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto5.webp" class="img-fluid look-modal-img" alt="Detalle 5 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto5.webp" class="img-fluid look-modal-img" alt="Detalle 5 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>El accesorio que cerró la campaña: una cartera Versace con la cabeza de Medusa labrada en metal. Símbolo definitivo de la casa, presente en bolsos, hebillas y estampas desde 1978.</p>
+                            <p>El accesorio cerró la campaña: una pieza labrada en metal que se transformó en símbolo. Las casas de alta costura construyen identidad a través de detalles así.</p>
                         </div>
                     </div>
                 </div>
@@ -274,10 +270,10 @@
                 <div class="modal-body">
                     <div class="row g-4 align-items-center">
                         <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto6.webp" class="img-fluid look-modal-img" alt="Detalle 6 del vestido barroco de Versace">
+                            <img src="../multimedia/looks-marca/galeria/marca1-foto6.webp" class="img-fluid look-modal-img" alt="Detalle 6 del look">
                         </div>
                         <div class="col-md-6">
-                            <p>Plano del rostro: maquillaje editorial, mirada fija a cámara y melena rubia plancha. La estética que Mert &amp; Marcus repitieron en toda la campaña primavera-verano 2014 de Versace.</p>
+                            <p>Plano del rostro: maquillaje editorial, mirada fija a cámara y estilismo cuidado al milímetro. La estética que se repitió en toda la campaña gráfica del look.</p>
                         </div>
                     </div>
                 </div>

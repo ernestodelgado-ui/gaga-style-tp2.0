@@ -66,7 +66,7 @@ main, header, footer {
 body {
     background-color: var(--navy-fondo);
     background-image:
-        linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+        linear-gradient(rgba(5, 13, 31, 0.85), rgba(5, 13, 31, 0.85)),
         url('../multimedia/textura_mobile.webp');
     background-size: cover;
     background-position: center top;
@@ -81,7 +81,7 @@ body {
 @media (min-width: 768px) {
     body {
         background-image:
-            linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+            linear-gradient(rgba(5, 13, 31, 0.85), rgba(5, 13, 31, 0.85)),
             url('../multimedia/textura_tablet.webp');
     }
 }
@@ -89,7 +89,7 @@ body {
 @media (min-width: 992px) {
     body {
         background-image:
-            linear-gradient(rgba(12, 26, 58, 0.65), rgba(12, 26, 58, 0.65)),
+            linear-gradient(rgba(5, 13, 31, 0.85), rgba(5, 13, 31, 0.85)),
             url('../multimedia/textura_pc.webp');
     }
 }
@@ -302,6 +302,81 @@ header {
     filter: invert(70%) sepia(50%) saturate(500%) hue-rotate(10deg);
 }
 
+/* Dropdown "Marcas" del navbar: pisamos los CSS vars de Bootstrap para que
+   entre en la paleta navy + dorado del sitio. Sin estas reglas el panel
+   sale blanco con texto gris (el default de bootstrap.css). */
+.navbar .dropdown-menu {
+    --bs-dropdown-bg: rgba(5, 13, 31, 0.95);
+    --bs-dropdown-color: var(--texto-claro);
+    --bs-dropdown-link-color: var(--texto-claro);
+    --bs-dropdown-link-hover-color: var(--dorado);
+    --bs-dropdown-link-hover-bg: rgba(224, 179, 65, 0.12);
+    --bs-dropdown-link-active-color: var(--dorado);
+    --bs-dropdown-link-active-bg: rgba(224, 179, 65, 0.18);
+    --bs-dropdown-border-color: rgba(224, 179, 65, 0.3);
+    --bs-dropdown-border-radius: 12px;
+    --bs-dropdown-padding-y: 8px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.5),
+        0 0 12px rgba(224, 179, 65, 0.15);
+    margin-top: 6px;
+}
+
+.navbar .dropdown-item {
+    padding: 10px 22px;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        padding-left 0.2s ease;
+}
+
+/* Slide a la derecha en hover para dar feedback visual */
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus {
+    padding-left: 28px;
+}
+
+/* Flecha del dropdown-toggle en dorado (Bootstrap la pinta del color del texto) */
+.navbar .nav-link.dropdown-toggle::after {
+    margin-left: 6px;
+    vertical-align: middle;
+    border-top-color: var(--dorado);
+}
+
+/* Dropdown en MOBILE/TABLET (navbar colapsada ≤991px): caja más compacta,
+   alineada a la derecha (margin-left: auto) y con texto CENTRADO dentro
+   de cada item para que se vea más prolijo y menos blocky. */
+@media (max-width: 991px) {
+    .navbar-collapse .dropdown-menu {
+        max-width: 60%;
+        margin-left: auto;
+        margin-right: 8px;
+        padding: 6px 0;
+    }
+
+    .navbar-collapse .dropdown-item {
+        padding: 10px 20px;
+        text-align: center;
+    }
+
+    /* "Iluminación" en hover: fondo dorado más intenso + glow del texto
+       con text-shadow + glow inset en la caja. Sin slide horizontal
+       (queda raro con texto centrado). */
+    .navbar-collapse .dropdown-item:hover,
+    .navbar-collapse .dropdown-item:focus {
+        padding-left: 20px;
+        background-color: rgba(224, 179, 65, 0.2);
+        color: var(--dorado-claro);
+        text-shadow: 0 0 10px rgba(224, 179, 65, 0.65);
+        box-shadow: inset 0 0 14px rgba(224, 179, 65, 0.2);
+    }
+}
+
 /* ============================================
    4) Banner / Inicio (carousel de Bootstrap)
    --------------------------------------------
@@ -477,6 +552,23 @@ header {
         max-width: 500px;
         margin: 12px auto;
     }
+
+    /* CTAs de sección: el botón "Conocer más" / "Ver galería" / "Contactanos"
+       se mueve a quedar DEBAJO del texto y ENCIMA de la foto (o de las cards).
+       El figure / ul se manda al final con order: 1 (resto de elementos quedan
+       en order: 0 = DOM order). */
+    #sobre > .container,
+    #contacto > .container,
+    #looks > .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #sobre > .container > figure,
+    #contacto > .container > figure,
+    #looks > .container > ul {
+        order: 1;
+    }
 }
 
 /* ----------------------------------------------------------
@@ -567,6 +659,22 @@ header {
     main > section.fade-in-pending.visible {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    /* CTAs de sección (mismo reorden que en tablet): el botón queda DEBAJO
+       del texto y ENCIMA de la foto / cards. Mismo truco con flex column +
+       order: 1 en el figure / ul. */
+    #sobre > .container,
+    #contacto > .container,
+    #looks > .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #sobre > .container > figure,
+    #contacto > .container > figure,
+    #looks > .container > ul {
+        order: 1;
     }
 }
 
@@ -665,36 +773,11 @@ header {
     padding: 30px;
 }
 
-/* Ken Burns: la foto de "Sobre Lady Gaga" hace zoom y paneo suave en loop.
-   El overflow:hidden evita que la imagen se vea fuera del marco redondeado
-   cuando crece con la animación. */
-#sobre figure {
-    overflow: hidden;
-}
-
 #sobre figure picture,
 #sobre figure img {
     display: block;
     width: 100%;
     height: auto;
-}
-
-#sobre figure img {
-    animation: ken-burns-sobre 9s ease-in-out infinite alternate;
-    transform-origin: center center;
-    will-change: transform;
-}
-
-@keyframes ken-burns-sobre {
-    0%   { transform: scale(1.05) translate(-4%, 2%); }
-    50%  { transform: scale(1.15) translate(0%, -2%); }
-    100% { transform: scale(1.08) translate(4%, 2%); }
-}
-
-/* Accesibilidad: si el usuario tiene "reducir movimiento" activado en el SO,
-   le sacamos la animación Ken Burns. */
-@media (prefers-reduced-motion: reduce) {
-    #sobre figure img { animation: none; }
 }
 
 /* Botones de sección alineados a la derecha */
@@ -708,6 +791,26 @@ header {
     margin-right: 0;
     margin-top: 20px;
     width: fit-content;
+}
+
+/* Excepción tablet y PC: el botón "Contactanos" queda CENTRADO (único CTA
+   centrado del sitio). Esta regla va DESPUÉS de la base de arriba para ganar
+   la cascade — si la ponemos antes, los margin-left:auto / margin-right:0 de
+   la regla base pisan el centrado por orden de aparición (misma especificidad).
+   Dos media queries separadas porque el usuario maneja tablet 768-991 y PC ≥1024
+   como breakpoints estrictos (el rango 992-1023 queda sin override a propósito). */
+@media (min-width: 768px) and (max-width: 991px) {
+    #contacto > .container > .btn {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    #contacto > .container > .btn {
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 /* ============================================
@@ -849,6 +952,202 @@ header {
     display: block;
 }
 
+/* Mobile: el logo de marca llena todo el ancho del marco para que se vea
+   bien grande (la profe pidió que en mobile la imagen sea más grande,
+   parejo para todas las marcas). */
+@media (max-width: 767px) {
+    #marca figure {
+        max-width: none;
+    }
+
+    #marca figure img {
+        max-height: none;
+        width: 100%;
+    }
+}
+
+/* Tablet: rediseño en 2 filas principales.
+   - Fila 1: h1 ("VERSACE") + lead apilados, a todo el ancho.
+   - Fila 2 (2 columnas): figure (logo) izquierda + card scroll con Historia y
+     Lady Gaga × Versace derecha.
+   - Fila 3+: look icónico a todo el ancho, después el botón "Volver".
+   Lo armamos con CSS Grid para controlar todo sin tocar el HTML. */
+@media (min-width: 768px) and (max-width: 991px) {
+    #marca > .container {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        column-gap: 30px;
+        row-gap: 20px;
+        align-items: start;
+    }
+
+    /* h1 a todo el ancho. row-gap=20px se compensa con negative margin abajo
+       para acercar el lead al título (sin esto queda demasiado aire entre ambos). */
+    #marca > .container > h1 {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 0 0 -12px;
+    }
+
+    /* Lead (texto italic) justo debajo del h1, también a todo el ancho */
+    #marca > .container > .marca-lead {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin: 0;
+    }
+
+    /* Fila 3: figure (columna izquierda). Padding interno reducido + logo a
+       width:100% para que se vea grande dentro de un marco más compacto.
+       align-self:stretch + flex centra el logo verticalmente cuando la card
+       de info es más alta. */
+    #marca > .container > figure {
+        grid-column: 1;
+        grid-row: 3;
+        max-width: 260px;
+        margin: 0;
+        padding: 18px;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #marca > .container > figure img {
+        max-height: none;
+        width: 100%;
+    }
+
+    /* Card de info al lado del figure: misma estética dorada que el marco del
+       figure (background y border degradados copiados de la regla compartida),
+       max-height + overflow-y:auto para que el texto largo scrollee dentro. */
+    #marca > .container > .marca-info {
+        grid-column: 2;
+        grid-row: 3;
+        background:
+            linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+            linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        padding: 20px 24px;
+        max-height: 360px;
+        overflow-y: auto;
+        align-self: stretch;
+    }
+
+    /* El primer h2 ("Historia") trae margin-top:30px de la regla base — lo
+       sacamos para que quede pegado al borde superior de la card. */
+    #marca > .container > .marca-info > h2:first-child {
+        margin-top: 0;
+    }
+
+    /* Scrollbar custom para la card (Chrome/Edge): track navy + thumb dorado
+       semi-transparente que se intensifica en hover. En Firefox queda el
+       scrollbar default (limitación del navegador). */
+    #marca > .container > .marca-info::-webkit-scrollbar {
+        width: 8px;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin: 6px 0;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-thumb {
+        background: rgba(224, 179, 65, 0.5);
+        border-radius: 4px;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-thumb:hover {
+        background: var(--dorado);
+    }
+
+    /* Look icónico y botón "Volver" a todo el ancho debajo */
+    #marca > .container > .look-icono,
+    #marca > .container > .btn {
+        grid-column: 1 / -1;
+    }
+}
+
+/* PC: mismo layout que en tablet (h1+lead arriba a todo el ancho, figure +
+   card scroll en 2 columnas, look icónico abajo) pero escalado: figure de
+   320px, más column-gap y la card de info con más max-height para mostrar
+   más texto sin scroll. */
+@media (min-width: 1024px) {
+    #marca > .container {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        column-gap: 40px;
+        row-gap: 25px;
+        align-items: start;
+    }
+
+    #marca > .container > h1 {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 0 0 -15px;
+    }
+
+    #marca > .container > .marca-lead {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin: 0;
+    }
+
+    #marca > .container > figure {
+        grid-column: 1;
+        grid-row: 3;
+        max-width: 320px;
+        margin: 0;
+        padding: 22px;
+        align-self: stretch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #marca > .container > figure img {
+        max-height: none;
+        width: 100%;
+    }
+
+    #marca > .container > .marca-info {
+        grid-column: 2;
+        grid-row: 3;
+        background:
+            linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+            linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        padding: 24px 28px;
+        max-height: 420px;
+        overflow-y: auto;
+        align-self: stretch;
+    }
+
+    #marca > .container > .marca-info > h2:first-child {
+        margin-top: 0;
+    }
+
+    #marca > .container > .marca-info::-webkit-scrollbar {
+        width: 8px;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin: 6px 0;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-thumb {
+        background: rgba(224, 179, 65, 0.5);
+        border-radius: 4px;
+    }
+    #marca > .container > .marca-info::-webkit-scrollbar-thumb:hover {
+        background: var(--dorado);
+    }
+
+    #marca > .container > .look-icono,
+    #marca > .container > .btn {
+        grid-column: 1 / -1;
+    }
+}
+
 #marca .marca-info h2 {
     font-size: 1.3rem;
     margin-top: 30px;
@@ -913,17 +1212,17 @@ header {
 }
 
 #marca .look-icono h3 {
-    font-size: 0.95rem;
-    margin: 0 0 8px;
+    font-size: 1.15rem;
+    margin: 0 0 10px;
     color: var(--dorado);
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 #marca .look-icono p {
-    margin-bottom: 5px;
-    line-height: 1.45;
-    font-size: 0.82rem;
+    margin-bottom: 8px;
+    line-height: 1.55;
+    font-size: 1rem;
     color: var(--texto-claro);
 }
 
@@ -934,12 +1233,12 @@ header {
 
 #marca .look-icono .btn-ver-mas {
     display: inline-block;
-    margin-top: 10px;
-    padding: 6px 16px;
+    margin-top: 12px;
+    padding: 8px 20px;
     border: 1px solid rgba(224, 179, 65, 0.5);
     border-radius: 30px;
     color: var(--dorado);
-    font-size: 0.7rem;
+    font-size: 0.82rem;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
@@ -1030,6 +1329,111 @@ header {
     color: var(--dorado);
     letter-spacing: 1px;
     margin-right: 8px;
+}
+
+/* --------------------------------------------
+   Galería del look (solo tablet y PC)
+   --------------------------------------------
+   Fila con foto principal a la izquierda + grilla 2x2 de thumbs
+   a la derecha. En mobile la galería está oculta por d-none d-md-block
+   en el HTML y queda solo la foto principal a ancho completo.
+   Cada thumb es un <button> (data-bs-toggle="modal") que abre un modal
+   de Bootstrap con la versión grande de la foto + texto. */
+#look-marca .look-fila {
+    margin: 30px 0;
+}
+
+/* La figure principal ya tiene su marco dorado heredado de #look-marca figure,
+   pero por estar dentro de una columna de Bootstrap arrastra el padding del col.
+   Lo bajamos para que el marco arranque pegado al borde del col. */
+#look-marca .look-figura-principal {
+    margin: 0;
+}
+
+/* Grilla 2x2 de thumbnails. Cada thumb es cuadrado-ish (mantenemos
+   el 3:4 vertical de las imágenes 360x480). */
+#look-marca .look-galeria ul {
+    margin: 0;
+}
+
+#look-marca .look-thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border: 2px solid rgba(224, 179, 65, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#look-marca .look-thumb img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#look-marca .look-thumb:hover,
+#look-marca .look-thumb:focus-visible {
+    border-color: var(--dorado);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    outline: none;
+}
+
+#look-marca .look-thumb:hover img,
+#look-marca .look-thumb:focus-visible img {
+    transform: scale(1.08);
+}
+
+/* --------------------------------------------
+   Modal de la galería
+   --------------------------------------------
+   Pisa los estilos default de Bootstrap para que el modal use la
+   paleta navy + dorado del sitio. */
+.look-modal .modal-content {
+    background-color: var(--navy-fondo);
+    color: var(--texto-claro);
+    border: 2px solid rgba(224, 179, 65, 0.5);
+    border-radius: 16px;
+}
+
+.look-modal .modal-header {
+    border-bottom: 1px solid rgba(224, 179, 65, 0.25);
+    padding: 1rem 1.25rem;
+}
+
+.look-modal .modal-title {
+    color: var(--dorado);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* El botón cerrar de Bootstrap es una X negra → la invertimos a blanca
+   para que se vea sobre el fondo navy. */
+.look-modal .btn-close {
+    filter: invert(1) grayscale(100%) brightness(1.5);
+}
+
+.look-modal .modal-body {
+    padding: 1.5rem;
+}
+
+.look-modal .look-modal-img {
+    border-radius: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.look-modal .modal-body p {
+    color: var(--texto-claro);
+    line-height: 1.7;
+    margin: 0;
 }
 
 /* ============================================
@@ -1340,6 +1744,41 @@ header {
     margin-bottom: 16px;
 }
 
+/* Form del newsletter: input email + botón apilados, centrados y con el mismo
+   ancho máximo. Misma estética "dark glass" que usamos en el formulario de
+   contacto, pero con border-radius pill para combinar con el botón. */
+#faq .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+#faq .newsletter-input {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(224, 179, 65, 0.25);
+    border-radius: 50px;
+    color: var(--texto-claro);
+    padding: 12px 22px;
+    font-size: 0.95rem;
+    text-align: center;
+    letter-spacing: 0.5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+#faq .newsletter-input::placeholder {
+    color: rgba(199, 201, 209, 0.5);
+}
+
+#faq .newsletter-input:focus {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--dorado);
+    box-shadow: 0 0 0 3px rgba(224, 179, 65, 0.15);
+    color: var(--texto-claro);
+    outline: none;
+}
+
 /* Live alert disparado por JS: pisamos los CSS vars de Bootstrap para que
    el alert entre en la paleta navy + dorado (no en el amarillo default
    que trae alert-warning, ni el azul/rojo de los demás tipos). */
@@ -1523,4 +1962,272 @@ footer .footer-carrera {
     font-size: 0.8rem;
     letter-spacing: 4px;
     margin: 4px 0 16px;
+}
+
+/* ============================================
+   PC (≥1024px) — Página "Sobre Lady Gaga" (secciones/sobre.html)
+   --------------------------------------------
+   Las 3 sub-secciones (Música, Cine, Activismo) usan el mismo layout en
+   2 columnas: figure a la izquierda (compacto, 380px) + article.sobre-info
+   a la derecha con card de scroll dorada — mismo patrón que la página de
+   marca para mantener consistencia visual.
+
+   Scope con .pagina-sobre (clase en el <body>) para no pisar el #musica
+   del index, que es el reproductor de audio.
+
+   En tablet/mobile la página queda con layout single-column (sin grid),
+   usando las reglas base de figure existentes — la profe solo pidió este
+   rediseño en PC.
+   ============================================ */
+@media (min-width: 1024px) {
+    /* Intro: título y párrafo más grandes en PC, para que la apertura de la
+       página tenga más peso visual. */
+    .pagina-sobre #intro h1 {
+        font-size: 3rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .pagina-sobre #intro p {
+        font-size: 1.2rem;
+        line-height: 1.65;
+        max-width: 900px;
+    }
+
+    /* grid-template-rows: auto 500px → la fila del h2 se sizes por contenido,
+       la fila de figure+card es FIJA en 500px. Eso hace que la card y el figure
+       tengan exactamente el mismo alto, y el scroll de la card respete ese tope
+       (sin esto la card se estiraba hasta el alto total del texto). */
+    .pagina-sobre #musica > .container,
+    .pagina-sobre #cine > .container,
+    .pagina-sobre #activismo > .container {
+        display: grid;
+        grid-template-columns: 380px 1fr;
+        grid-template-rows: auto 500px;
+        column-gap: 40px;
+        row-gap: 22px;
+        text-align: left; /* override del text-align:center que aplica al #musica del index */
+    }
+
+    .pagina-sobre #musica > .container > h2,
+    .pagina-sobre #cine > .container > h2,
+    .pagina-sobre #activismo > .container > h2 {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin: 0;
+    }
+
+    /* Figure: columna izquierda de la fila 2 (500px). overflow:hidden corta
+       lo que se salga del marco redondeado. La imagen llena el figure entero
+       con object-fit:cover (cubre todo, recorta los bordes si hace falta). */
+    .pagina-sobre #musica > .container > figure,
+    .pagina-sobre #cine > .container > figure,
+    .pagina-sobre #activismo > .container > figure {
+        grid-column: 1;
+        grid-row: 2;
+        margin: 0;
+        padding: 18px;
+        overflow: hidden;
+    }
+
+    .pagina-sobre #musica > .container > figure img,
+    .pagina-sobre #cine > .container > figure img,
+    .pagina-sobre #activismo > .container > figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+    }
+
+    /* Card de texto: ocupa la columna derecha de la fila 2 (también 500px).
+       min-height:0 permite que el contenido se desborde y dispare el scroll
+       (sin esto el min-height auto del grid item evita el clipping). */
+    .pagina-sobre .sobre-info {
+        grid-column: 2;
+        grid-row: 2;
+        background:
+            linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+            linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+        border: 2px solid transparent;
+        border-radius: 20px;
+        padding: 24px 28px;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    .pagina-sobre .sobre-info > p {
+        margin-bottom: 1rem;
+        line-height: 1.7;
+        color: var(--texto-claro);
+    }
+
+    .pagina-sobre .sobre-info > p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Scrollbar custom (Chrome/Edge) — mismo estilo que en marca-info para
+       mantener consistencia. En Firefox queda el scrollbar default. */
+    .pagina-sobre .sobre-info::-webkit-scrollbar {
+        width: 8px;
+    }
+    .pagina-sobre .sobre-info::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 4px;
+        margin: 6px 0;
+    }
+    .pagina-sobre .sobre-info::-webkit-scrollbar-thumb {
+        background: rgba(224, 179, 65, 0.5);
+        border-radius: 4px;
+    }
+    .pagina-sobre .sobre-info::-webkit-scrollbar-thumb:hover {
+        background: var(--dorado);
+    }
+}
+
+/* ============================================
+   Look de marca — layout PC (≥1024px)
+   --------------------------------------------
+   En mobile/tablet la página queda con el flujo natural: figure +
+   galería (en tablet) arriba, y debajo los 3 bloques de info como
+   texto corrido, seguido del botón "Volver".
+
+   En PC pasamos a un grid de 2 columnas con 3 cards de info:
+       intro → al lado de la galería (cap a la altura de la galería,
+               con scroll si excede)
+       detalles + importa → fila inferior full-width, lado a lado
+
+   ┌──────────┬──────────┐
+   │   h1     │   h1     │
+   │  lead    │  lead    │
+   ├──────────┼──────────┤
+   │ figura   │          │
+   ├──────────┤ galería  │
+   │  intro   │          │ ← card "El look" con scroll si excede
+   │ (scroll) │          │
+   ├──────────┴──────────┤
+   │ detalles │ importa  │ ← 2 cards lado a lado, fila inferior
+   ├──────────┴──────────┤
+   │      volver btn     │
+   └─────────────────────┘
+
+   Truco: usamos display:contents en .look-fila y en .marca-info para
+   "disolver" esos contenedores y exponer la figura, la galería y los
+   3 bloques de info directamente como hijos del grid del container.
+   Así no necesitamos cambiar el layout de mobile/tablet — los .look-bloque
+   son simples divs que stackean vertical sin estilos hasta PC.
+   ============================================ */
+@media (min-width: 1024px) {
+    #look-marca > .container {
+        display: grid;
+        grid-template-columns: 7fr 5fr;
+        grid-template-rows: auto auto auto auto auto auto;
+        grid-template-areas:
+            "h1       h1"
+            "lead     lead"
+            "figura   galeria"
+            "intro    galeria"
+            "detalles importa"
+            "boton    boton";
+        column-gap: 30px;
+    }
+
+    /* Disolver row y article para exponer hijos directamente al grid. */
+    #look-marca .look-fila { display: contents; }
+    #look-marca > .container > .marca-info { display: contents; }
+
+    #look-marca > .container > h1 { grid-area: h1; }
+    #look-marca > .container > .marca-lead { grid-area: lead; }
+
+    /* Figura: ancla en la celda "figura". Reseteamos width/padding
+       del col-md-7 porque dentro del grid los maneja la celda. */
+    #look-marca .look-fila > .look-figura-principal {
+        grid-area: figura;
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        padding-left: 0;
+        padding-right: 0;
+        margin: 0;
+    }
+
+    /* Galería: spans rows "figura"+"intro" (3-4). El alto de esas filas
+       lo definen la figura y el card "El look" (ambas auto), así que
+       la galería se ajusta a ese alto total — sus thumbs llegan
+       exactamente al tope de la figura y al fondo del card "El look". */
+    #look-marca .look-fila > .look-galeria {
+        grid-area: galeria;
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Inner grid 2×3 de la galería: en PC reemplazamos el row+col-6 de
+       Bootstrap por un grid propio que distribuye los 6 thumbs en 3 filas
+       iguales (1fr cada una) y 2 columnas. Con height:100% las 3 filas
+       se reparten todo el alto disponible (figura + intro card).
+       Gap de 24px en vez del g-3 (~16px) de mobile/tablet para que las
+       fotos respiren más. */
+    #look-marca .look-fila > .look-galeria > ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(3, 1fr);
+        gap: 24px;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Reset de los col-6 de Bootstrap dentro del inner grid: el grid
+       maneja el tamaño de cada celda, no flex/cols. */
+    #look-marca .look-fila > .look-galeria > ul > li {
+        padding: 0;
+        margin: 0;
+        width: auto;
+        max-width: none;
+        flex: none;
+    }
+
+    /* El thumb (button) llena su celda completamente. */
+    #look-marca .look-fila > .look-galeria .look-thumb {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* La imagen llena el thumb con object-fit:cover: recorta lo justo
+       para que cubra la celda sin deformarse. Así todos los thumbs
+       tienen exactamente el mismo tamaño y la grilla queda alineada. */
+    #look-marca .look-fila > .look-galeria .look-thumb > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Estilo COMÚN de las 3 cards: marco dorado del sitio + fondo navy
+       semitransparente. Mismo lenguaje visual que la card de .pagina-sobre
+       .sobre-info para mantener consistencia entre páginas. */
+    #look-marca .marca-info > .look-bloque {
+        background:
+            linear-gradient(rgba(20, 37, 82, 0.5), rgba(20, 37, 82, 0.5)) padding-box,
+            linear-gradient(135deg, rgba(224, 179, 65, 0.8) 0%, rgba(224, 179, 65, 0.2) 50%, rgba(224, 179, 65, 0.05) 100%) border-box;
+        border: 2px solid transparent;
+        border-radius: 16px;
+        padding: 20px 26px;
+        margin-top: 20px;
+    }
+
+    /* El primer h2 dentro de cualquier card no necesita margin-top extra
+       (queda pegado al borde superior del card). */
+    #look-marca .marca-info > .look-bloque > h2:first-child {
+        margin-top: 0;
+    }
+
+    #look-marca .look-bloque-intro { grid-area: intro; }
+    #look-marca .look-bloque-detalles { grid-area: detalles; }
+    #look-marca .look-bloque-importa { grid-area: importa; }
+
+    #look-marca > .container > .btn {
+        grid-area: boton;
+    }
 }
