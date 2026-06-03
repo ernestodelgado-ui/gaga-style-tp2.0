@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap">
+    <link rel="stylesheet" href="../estilos/fancybox.css">
     <link rel="stylesheet" href="../estilos/estilos.css">
 </head>
 <body>
@@ -72,10 +73,12 @@
                 <h1>Traje robótico</h1>
                 <p class="marca-lead">Mugler × Lady Gaga · 2011</p>
 
-                <!-- Foto principal + galería 2x3. Las 6 imágenes de la galería se comparten
+                <!-- Foto principal + galería de thumbs. Las 6 imágenes de la galería se comparten
                      entre todas las marcas (carpeta multimedia/looks-marca/galeria/marca1-*).
-                     En mobile la galería se oculta. Cada thumb abre un modal de Bootstrap
-                     con la versión grande + texto descriptivo. -->
+                     Mobile: foto principal a ancho completo + thumbs en grilla de 2 columnas debajo.
+                     Tablet/PC: foto a la izquierda + thumbs a la derecha. Cada thumb es un <a> con
+                     data-fancybox que abre la foto grande en un lightbox de Fancybox (data-caption
+                     para el texto, data-srcset para cargar mini 360w o grande 720w según pantalla). -->
                 <div class="row look-fila align-items-start">
                     <figure class="col-12 col-md-7 look-figura-principal">
                         <picture>
@@ -85,37 +88,38 @@
                         </picture>
                     </figure>
 
-                    <div class="col-md-5 look-galeria d-none d-md-block">
-                        <ul class="row list-unstyled g-3">
+                    <div class="col-12 col-md-5 look-galeria">
+                        <!-- propiedad + break + columna -->
+                        <ul class="row list-unstyled g-3" id="galeria">
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto1">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto1.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb1.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto1.webp 720w" data-caption="<b>Detalle barroco</b> — Plano cerrado de un vestido drapeado en seda con bordados dorados. Los prints recargados —cabeza de Medusa, motivos griegos— son la firma inconfundible de Versace.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb1.webp" class="img-fluid" alt="Detalle 1 del look">
-                                </button>
+                                </a>
                             </li>
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto2">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto2.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb2.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto2.webp 720w" data-caption="<b>Pose editorial</b> — Pose de campaña fotografiada por Mert Alas y Marcus Piggott. Lady Gaga encarna a la diosa griega que las casas de alta costura evocan temporada tras temporada.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb2.webp" class="img-fluid" alt="Detalle 2 del look">
-                                </button>
+                                </a>
                             </li>
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto3">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto3.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb3.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto3.webp 720w" data-caption="<b>Drapeado dorado</b> — El drapeado en oro y la caída de la seda repiten el gesto barroco italiano: dramatismo controlado, sensualidad descarada y cita constante al imaginario clásico.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb3.webp" class="img-fluid" alt="Detalle 3 del look">
-                                </button>
+                                </a>
                             </li>
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto4">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto4.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb4.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto4.webp 720w" data-caption="<b>Imagen icónica</b> — Una de las imágenes más reproducidas de Lady Gaga: campaña fotografiada como editorial puro, donde cada accesorio y cada gesto fue calculado al detalle.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb4.webp" class="img-fluid" alt="Detalle 4 del look">
-                                </button>
+                                </a>
                             </li>
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto5">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto5.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb5.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto5.webp 720w" data-caption="<b>Detalle de accesorio</b> — El accesorio cerró la campaña: una pieza labrada en metal que se transformó en símbolo. Las casas de alta costura construyen identidad a través de detalles así.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb5.webp" class="img-fluid" alt="Detalle 5 del look">
-                                </button>
+                                </a>
                             </li>
                             <li class="col-6">
-                                <button type="button" class="look-thumb" data-bs-toggle="modal" data-bs-target="#galeriaFoto6">
+                                <a class="look-thumb" data-fancybox="galeria" href="../multimedia/looks-marca/galeria/marca1-foto6.webp" data-srcset="../multimedia/looks-marca/galeria/marca1-thumb6.webp 360w, ../multimedia/looks-marca/galeria/marca1-foto6.webp 720w" data-caption="<b>Mirada de campaña</b> — Plano del rostro: maquillaje editorial, mirada fija a cámara y estilismo cuidado al milímetro. La estética que se repitió en toda la campaña gráfica del look.">
                                     <img src="../multimedia/looks-marca/galeria/marca1-thumb6.webp" class="img-fluid" alt="Detalle 6 del look">
-                                </button>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -162,134 +166,12 @@
         </div>
     </footer>
 
-    <!-- Modales de la galería: uno por cada thumb. Se abren con data-bs-toggle="modal".
-         Cada modal muestra la foto grande (720x960) a la izquierda y el texto a la derecha. -->
-    <div class="modal fade look-modal" id="galeriaFoto1" tabindex="-1" aria-labelledby="galeriaFoto1Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto1Label">Detalle barroco</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto1.webp" class="img-fluid look-modal-img" alt="Detalle 1 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>Plano cerrado de un vestido drapeado en seda con bordados dorados. Los prints recargados —cabeza de Medusa, motivos griegos— son la firma inconfundible de Versace.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade look-modal" id="galeriaFoto2" tabindex="-1" aria-labelledby="galeriaFoto2Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto2Label">Pose editorial</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto2.webp" class="img-fluid look-modal-img" alt="Detalle 2 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>Pose de campaña fotografiada por Mert Alas y Marcus Piggott. Lady Gaga encarna a la diosa griega que las casas de alta costura evocan temporada tras temporada.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade look-modal" id="galeriaFoto3" tabindex="-1" aria-labelledby="galeriaFoto3Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto3Label">Drapeado dorado</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto3.webp" class="img-fluid look-modal-img" alt="Detalle 3 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>El drapeado en oro y la caída de la seda repiten el gesto barroco italiano: dramatismo controlado, sensualidad descarada y cita constante al imaginario clásico.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade look-modal" id="galeriaFoto4" tabindex="-1" aria-labelledby="galeriaFoto4Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto4Label">Imagen icónica</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto4.webp" class="img-fluid look-modal-img" alt="Detalle 4 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>Una de las imágenes más reproducidas de Lady Gaga: campaña fotografiada como editorial puro, donde cada accesorio y cada gesto fue calculado al detalle.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade look-modal" id="galeriaFoto5" tabindex="-1" aria-labelledby="galeriaFoto5Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto5Label">Detalle de accesorio</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto5.webp" class="img-fluid look-modal-img" alt="Detalle 5 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>El accesorio cerró la campaña: una pieza labrada en metal que se transformó en símbolo. Las casas de alta costura construyen identidad a través de detalles así.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade look-modal" id="galeriaFoto6" tabindex="-1" aria-labelledby="galeriaFoto6Label" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="galeriaFoto6Label">Mirada de campaña</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row g-4 align-items-center">
-                        <div class="col-md-6">
-                            <img src="../multimedia/looks-marca/galeria/marca1-foto6.webp" class="img-fluid look-modal-img" alt="Detalle 6 del look">
-                        </div>
-                        <div class="col-md-6">
-                            <p>Plano del rostro: maquillaje editorial, mirada fija a cámara y estilismo cuidado al milímetro. La estética que se repitió en toda la campaña gráfica del look.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="../js/bootstrap.bundle.min.js"></script>
+    <script src="../js/fancybox.umd.js"></script>
+    <!-- Inicializa Fancybox: agrupa todos los <a data-fancybox="galeria"> en una
+         misma galería navegable (lightbox en la misma página, con miniaturas). -->
+    <script>
+        Fancybox.bind('[data-fancybox="galeria"]');
+    </script>
 </body>
 </html>

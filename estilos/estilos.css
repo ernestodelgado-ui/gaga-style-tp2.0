@@ -329,16 +329,17 @@ header {
     padding: 10px 22px;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        padding-left 0.2s ease;
 }
 
-/* Slide a la derecha en hover para dar feedback visual */
+/* Sin animación (pedido de la profe): al pasar/seleccionar, la marca SOLO se
+   ilumina con un fondo dorado que ocupa todo el ancho de la caja. Sin slide
+   horizontal ni transición. */
 .navbar .dropdown-item:hover,
-.navbar .dropdown-item:focus {
-    padding-left: 28px;
+.navbar .dropdown-item:focus,
+.navbar .dropdown-item.active,
+.navbar .dropdown-item:active {
+    background-color: rgba(224, 179, 65, 0.22);
+    color: var(--dorado);
 }
 
 /* Flecha del dropdown-toggle en dorado (Bootstrap la pinta del color del texto) */
@@ -928,6 +929,21 @@ header {
     }
 }
 
+/* Mobile (≤767px): mismo problema que en PC. Con la grilla de 2 columnas
+   (col-6) "Alexander McQueen" se parte en dos líneas y descuadra la card
+   respecto a las otras 5. Mostramos solo "Mcqueen" para que entre en una
+   sola línea y la card quede igual de alta que las demás. */
+@media (max-width: 767px) {
+    .tarjeta-marca[href*="marca5"] span {
+        font-size: 0;
+    }
+    .tarjeta-marca[href*="marca5"] span::after {
+        content: "Mcqueen";
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+}
+
 /* ============================================
    7) Página individual de marca (secciones/marcaN.html)
    --------------------------------------------
@@ -1267,6 +1283,29 @@ header {
     color: var(--dorado-claro);
 }
 
+/* Mobile (≤767px): la card del look icónico apila la foto ARRIBA y el texto
+   ABAJO (en vez de foto izquierda + texto derecha). A 320/375/425px el texto
+   quedaba en una columna muy angosta; así se lee mucho mejor.
+   align-items: center centra la foto; el texto va a ancho completo (width:100%)
+   para que quede alineado a la izquierda y no centrado. */
+@media (max-width: 767px) {
+    #marca .look-icono .look-mini {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #marca .look-icono .look-texto {
+        width: 100%;
+    }
+
+    #marca .look-icono img {
+        width: auto;
+        height: auto;
+        max-height: 320px;
+        max-width: 100%;
+    }
+}
+
 /* ============================================
    Página individual de look de marca (marcaN-look.html)
    --------------------------------------------
@@ -1349,13 +1388,12 @@ header {
 }
 
 /* --------------------------------------------
-   Galería del look (solo tablet y PC)
+   Galería del look
    --------------------------------------------
-   Fila con foto principal a la izquierda + grilla 2x2 de thumbs
-   a la derecha. En mobile la galería está oculta por d-none d-md-block
-   en el HTML y queda solo la foto principal a ancho completo.
-   Cada thumb es un <button> (data-bs-toggle="modal") que abre un modal
-   de Bootstrap con la versión grande de la foto + texto. */
+   Mobile: foto principal a ancho completo + thumbs en grilla de 2 columnas
+   debajo. Tablet/PC: foto principal a la izquierda + thumbs a la derecha.
+   Cada thumb es un <a data-fancybox="galeria"> que abre la foto grande en
+   un lightbox de Fancybox (ver sección "Galería Fancybox" más arriba). */
 #look-marca .look-fila {
     margin: 30px 0;
 }
@@ -1404,53 +1442,90 @@ header {
     transform: scale(1.08);
 }
 
+/* Mobile (≤767px): la grilla de thumbs ocupa TODO el ancho del contenedor,
+   alineada al mismo borde que el marco dorado de la foto principal de arriba.
+   Sacamos el padding lateral del col y reemplazamos el row+col-6 de Bootstrap
+   por un grid propio de 2 columnas con gap chico, para que los thumbs lleguen
+   al borde de la card grande y se vean más grandes. */
+@media (max-width: 767px) {
+    #look-marca .look-galeria {
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 24px;
+    }
+
+    #look-marca .look-galeria > ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+    }
+
+    #look-marca .look-galeria > ul > li {
+        width: auto;
+        max-width: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
 /* --------------------------------------------
-   Modal de la galería
+   Galería Fancybox (lightbox)
    --------------------------------------------
-   Pisa los estilos default de Bootstrap para que el modal use la
-   paleta navy + dorado del sitio. */
-.look-modal .modal-content {
-    background-color: var(--navy-fondo);
-    color: var(--texto-claro);
-    border: 2px solid rgba(224, 179, 65, 0.5);
-    border-radius: 16px;
-}
-
-.look-modal .modal-header {
-    border-bottom: 1px solid rgba(224, 179, 65, 0.25);
-    padding: 1rem 1.25rem;
-}
-
-.look-modal .modal-title {
-    color: var(--dorado);
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    margin: 0;
-}
-
-/* El botón cerrar de Bootstrap es una X negra → la invertimos a blanca
-   para que se vea sobre el fondo navy. */
-.look-modal .btn-close {
-    filter: invert(1) grayscale(100%) brightness(1.5);
-}
-
-.look-modal .modal-body {
-    padding: 1.5rem;
-}
-
-.look-modal .look-modal-img {
-    border-radius: 10px;
-    width: 100%;
-    height: auto;
-}
-
-.look-modal .modal-body p {
+   Reemplaza al modal de Bootstrap. Cada thumb (<a data-fancybox="galeria">)
+   abre la foto grande en un lightbox sobre la misma página. Acá pintamos el
+   pie de foto (.fancybox__caption) con la paleta navy + dorado del sitio,
+   y el título (<b> dentro del data-caption) con la tipografía Playfair. */
+.fancybox__caption {
     color: var(--texto-claro);
     line-height: 1.7;
-    margin: 0;
+}
+
+.fancybox__caption b {
+    color: var(--dorado);
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* PC (≥1024px): ponemos el texto AL LADO de la foto (imagen a la izquierda,
+   panel de texto a la derecha) en vez de debajo. La slide de Fancybox es flex
+   en columna por default; la pasamos a fila y limitamos el ancho de la imagen
+   para dejarle lugar al panel. La imagen se reescala sola porque su regla
+   interna es width:100% + max-height:100%. */
+@media (min-width: 1024px) {
+    .fancybox__slide.has-image {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        padding: 40px 56px;
+    }
+
+    .fancybox__slide.has-image > .fancybox__content {
+        max-width: calc(100% - 400px) !important;
+        max-height: 86vh !important;
+        flex: 0 1 auto;
+    }
+
+    .fancybox__caption {
+        align-self: center;
+        flex: 0 0 auto;
+        width: 340px;
+        max-width: 32vw;
+        text-align: left;
+        padding: 30px 32px;
+        background: rgba(8, 12, 38, 0.9);
+        border: 1px solid rgba(224, 179, 65, 0.6);
+        border-radius: 16px;
+    }
+
+    .fancybox__caption b {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 1.2rem;
+    }
 }
 
 /* ============================================
@@ -2490,4 +2565,59 @@ footer .footer-carrera {
     .disco-modal .modal-body p {
         font-size: 1.05rem;
     }
+}
+
+/* ============================================
+   Página "Próximamente" (placeholders de tp2.0)
+   --------------------------------------------
+   tp2.0 se entrega incompleta a propósito: varias páginas (marca2-6.html,
+   look2/3.html) no existen todavía. Para que los links no rompan con un
+   ERR_FILE_NOT_FOUND del navegador, esas rutas son páginas con este layout:
+   ícono + "Próximamente" + texto + botón para volver al inicio.
+   (En tp2 esta clase queda inerte: ahí todas las páginas existen.) */
+.pagina-proximamente {
+    min-height: 68vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+/* El .container interno también centra sus hijos. Sin esto, la <p> (que tiene
+   max-width) quedaba alineada a la izquierda en vez de centrada. Se mantiene
+   centrado a cualquier ancho (el container llega hasta su max-width y el bloque
+   queda siempre en el medio). */
+.pagina-proximamente > .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pagina-proximamente .proximamente-icono {
+    font-size: 3.5rem;
+    color: var(--dorado);
+    margin-bottom: 20px;
+    line-height: 1;
+}
+
+.pagina-proximamente h1 {
+    color: var(--dorado);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 0.75rem;
+}
+
+.pagina-proximamente .proximamente-sub {
+    color: var(--texto-suave);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 460px;
+}
+
+.pagina-proximamente .proximamente-sub strong {
+    color: var(--texto-claro);
 }

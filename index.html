@@ -177,31 +177,31 @@
                         </a>
                     </li>
                     <li class="col-6 col-md-4 col-lg-2">
-                        <a href="#" class="tarjeta-marca">
+                        <a href="secciones/marca2.html" class="tarjeta-marca">
                             <img src="multimedia/marcas/marca2.webp" class="img-fluid" alt="Armani">
                             <span>Armani</span>
                         </a>
                     </li>
                     <li class="col-6 col-md-4 col-lg-2">
-                        <a href="#" class="tarjeta-marca">
+                        <a href="secciones/marca3.html" class="tarjeta-marca">
                             <img src="multimedia/marcas/marca3.webp" class="img-fluid" alt="Valentino">
                             <span>Valentino</span>
                         </a>
                     </li>
                     <li class="col-6 col-md-4 col-lg-2">
-                        <a href="#" class="tarjeta-marca">
+                        <a href="secciones/marca4.html" class="tarjeta-marca">
                             <img src="multimedia/marcas/marca4.webp" class="img-fluid" alt="Mugler">
                             <span>Mugler</span>
                         </a>
                     </li>
                     <li class="col-6 col-md-4 col-lg-2">
-                        <a href="#" class="tarjeta-marca">
+                        <a href="secciones/marca5.html" class="tarjeta-marca">
                             <img src="multimedia/marcas/marca5.webp" class="img-fluid" alt="Alexander McQueen">
                             <span>Alexander McQueen</span>
                         </a>
                     </li>
                     <li class="col-6 col-md-4 col-lg-2">
-                        <a href="#" class="tarjeta-marca">
+                        <a href="secciones/marca6.html" class="tarjeta-marca">
                             <img src="multimedia/marcas/marca6.webp" class="img-fluid" alt="Gucci">
                             <span>Gucci</span>
                         </a>
@@ -241,7 +241,7 @@
                         </figure>
                         <div class="card-body">
                             <h3 class="card-title">Burbujas plásticas</h3>
-                            <a href="#" class="card-link">Ver más</a>
+                            <a href="secciones/look2.html" class="card-link">Ver más</a>
                         </div>
                     </li>
                     <li class="card col-12 col-md-6 col-lg-4">
@@ -254,7 +254,7 @@
                         </figure>
                         <div class="card-body">
                             <h3 class="card-title">Alta costura roja</h3>
-                            <a href="#" class="card-link">Ver más</a>
+                            <a href="secciones/look3.html" class="card-link">Ver más</a>
                         </div>
                     </li>
                 </ul>
@@ -373,15 +373,16 @@
                     </li>
                 </ul>
 
-                <!-- Newsletter CTA: el botón dispara un alert dinámico con JS
-                     (mismo patrón oficial de Bootstrap: createElement + append).
-                     El script va al final del body. -->
+                <!-- Newsletter CTA: el form se envía a Formspree por AJAX (fetch).
+                     Al enviar, a la dueña del sitio le llega un correo real con el
+                     mail cargado, y el usuario se queda en la página viendo un alert
+                     de Bootstrap (ver script al final del body). -->
                 <div class="newsletter-cta">
                     <p>¿Querés enterarte de las próximas novedades de Gaga?</p>
                     <div id="liveAlertPlaceholder"></div>
-                    <form id="newsletterForm" class="newsletter-form">
+                    <form id="newsletterForm" class="newsletter-form" action="https://formspree.io/f/xaqzwgbo" method="POST">
                         <label for="newsletterEmail" class="visually-hidden">Correo electrónico</label>
-                        <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="tu@email.com" required>
+                        <input type="email" name="email" id="newsletterEmail" class="newsletter-input" placeholder="tu@email.com" required>
                         <button id="liveAlertBtn" type="submit" class="btn btn-outline-warning">Suscribite al newsletter</button>
                     </form>
                 </div>
@@ -448,14 +449,28 @@
         }
 
         const newsletterForm = document.getElementById('newsletterForm')
-        const newsletterEmail = document.getElementById('newsletterEmail')
         if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
+            newsletterForm.addEventListener('submit', async (e) => {
                 e.preventDefault()
                 // Limpiar alertas previas para no acumularlas si el usuario clickea varias veces
                 alertPlaceholder.innerHTML = ''
-                appendAlert('¡Gracias por suscribirte! Pronto recibirás las novedades de Gaga en tu correo.', 'warning')
-                newsletterEmail.value = ''
+                try {
+                    // Envío a Formspree por AJAX: el mail llega de verdad y el usuario
+                    // se queda en la página (no lo redirige a la página de Formspree).
+                    const respuesta = await fetch(newsletterForm.action, {
+                        method: 'POST',
+                        body: new FormData(newsletterForm),
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    if (respuesta.ok) {
+                        appendAlert('¡Gracias por suscribirte! Pronto recibirás las novedades de Gaga en tu correo.', 'warning')
+                        newsletterForm.reset()
+                    } else {
+                        appendAlert('Hubo un problema al enviar tu correo. Probá de nuevo en un rato.', 'danger')
+                    }
+                } catch (error) {
+                    appendAlert('No se pudo conectar. Revisá tu conexión a internet e intentá de nuevo.', 'danger')
+                }
             })
         }
     </script>
