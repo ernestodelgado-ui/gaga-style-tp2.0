@@ -194,13 +194,28 @@ header {
     border-bottom: 2px solid transparent;
     border-image: linear-gradient(to right, transparent 0%, var(--dorado) 50%, transparent 100%) 1;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 12px rgba(224, 179, 65, 0.3);
+    /* Logo (izquierda) y nav (derecha) en la MISMA línea, centrados
+       verticalmente. position relative ancla el menú desplegable en mobile. */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    padding: 0 16px;
 }
 
 .navbar {
+    flex: 1 1 auto;          /* ocupa el resto y empuja el menú a la derecha */
     padding: 20px 0;
 }
 
-.navbar-brand {
+/* Logo fuera del nav, en un <h2>. Queda a la izquierda; el <a> arma la
+   columna "GAGA" + "Style" (antes era el .navbar-brand). */
+.site-logo {
+    margin: 0;
+    padding: 0;
+}
+
+.site-logo a {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -210,8 +225,44 @@ header {
     text-decoration: none;
 }
 
+/* El nav ya no impone su propio ancho. El container se estira a todo el
+   ancho disponible para empujar el menú (PC) y la hamburguesa (mobile) a la
+   DERECHA del todo. */
+.navbar > .container {
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+/* Mobile/tablet: al abrir la hamburguesa, el menú baja a TODO el ancho del
+   header (posicionado absoluto debajo) en vez de quedar apretado al lado
+   del logo. */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--navy-oscuro);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        z-index: 1030;
+    }
+}
+
+/* PC: centramos el contenido del header en una banda de 1140px sin perder
+   el fondo navy a todo el ancho. El menú queda inline a la derecha (ms-auto). */
+@media (min-width: 992px) {
+    header {
+        padding-left: max(16px, calc((100% - 1140px) / 2));
+        padding-right: max(16px, calc((100% - 1140px) / 2));
+    }
+}
+
 /* "GAGA" — texto grande con fuente serif Playfair Display */
-.navbar-brand .brand-main {
+.site-logo .brand-main {
     font-family: 'Playfair Display', 'Georgia', serif;
     font-size: 2.2rem;
     font-weight: 900;
@@ -223,7 +274,7 @@ header {
 }
 
 /* "Style" — texto chiquito debajo de "GAGA", entre dos rayitas doradas */
-.navbar-brand .brand-tag {
+.site-logo .brand-tag {
     margin-top: 2px;
     font-size: 0.6rem;
     letter-spacing: 6px;
@@ -234,8 +285,8 @@ header {
 }
 
 /* Líneas decorativas a los costados de "Style" */
-.navbar-brand .brand-tag::before,
-.navbar-brand .brand-tag::after {
+.site-logo .brand-tag::before,
+.site-logo .brand-tag::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -245,15 +296,15 @@ header {
     opacity: 0.7;
 }
 
-.navbar-brand .brand-tag::before {
+.site-logo .brand-tag::before {
     left: 0;
 }
 
-.navbar-brand .brand-tag::after {
+.site-logo .brand-tag::after {
     right: 0;
 }
 
-.navbar-brand:hover .brand-main {
+.site-logo a:hover .brand-main {
     color: var(--dorado-claro);
 }
 
