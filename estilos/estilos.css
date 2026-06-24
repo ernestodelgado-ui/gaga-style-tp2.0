@@ -117,12 +117,14 @@ a:hover {
 }
 
 /* Padding vertical de TODAS las secciones (deja aire arriba y abajo) */
-section {
+section,
+#volver {
     padding: 40px 20px;
 }
 
 @media (min-width: 768px) {
-    section {
+    section,
+    #volver {
         padding: 80px 0; /* más aire en tablet/PC */
     }
 }
@@ -579,7 +581,8 @@ header {
     }
 
     /* Achicar aire vertical entre secciones */
-    main > section {
+    main > section,
+    main > #volver {
         padding: 35px 0;
     }
 
@@ -2026,11 +2029,13 @@ header {
      de la sección/footer, sin importar el padding interno.
    ============================================ */
 main > section + section,
+main > section + #volver,
 footer {
     position: relative; /* hace falta para anclar el ::before absoluto */
 }
 
 main > section + section::before,
+main > section + #volver::before,
 footer::before {
     content: "";
     position: absolute;
